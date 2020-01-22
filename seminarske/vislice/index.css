@@ -1,0 +1,40 @@
+#hanged {
+    height: 400px;
+    width: 100%;
+}
+
+#ugibi{
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 10px;
+    font-size: 50px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#ugibi > span {
+    margin-right: 10px;
+    padding-left: 10px;
+    border-bottom-style: solid;
+    border-bottom-width: 5px;
+    padding-bottom: -5px;
+}
+
+#buttons > button {
+    border-radius: 3px;
+    font-weight: bolder;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+#game {
+    -webkit-box-shadow: 10px 10px 26px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 26px 1px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 26px 1px rgba(0,0,0,0.75);
+    border-style: solid;
+    border-radius: 30px;
+    border-width: 0px;
+    padding: 30px;
+    margin-left: 35%;
+    width: 500px;
+}
