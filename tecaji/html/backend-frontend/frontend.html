@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function httpGet(theUrl) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", "http://localhost:8080" + theUrl, false ); // false for synchronous request
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+        }
+
+        function getDatabase(){
+            var text = httpGet("/database");
+            var lines = text.split("\n");
+            var textNew = "";
+            for(var i=0;i<lines.length;i++){
+                textNew = textNew + `<li>${lines[i]}</li>`;
+            }
+            document.getElementById("desk").innerHTML = textNew;
+        }
+
+        function insertDatabase(){
+            var data = prompt("Enter new value: ");
+           httpGet("/database/" + data);
+           getDatabase();
+        }
+
+    </script>
+</head>
+<body>
+
+    <h1>Get data from server</h1>
+    <button onClick="getDatabase()">GET DATABASE</button>
+    <button onClick="insertDatabase()">INSERT DATABASE</button>
+
+    <ol id="desk">...</ol>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+body {
+    padding: 50px;
+    background-color: #ffebb5;
+}
+
+#mreza {
+    display: grid; /*Prikazi element kot mrezo*/
+    grid-template-areas: /*Struktura mreze*/
+        "nav   nav"
+        "jedro meni";
+
+    grid-gap: 10px; /*Razmik med elementi mreze*/
+    background-color: white; /*Zeleno ozadje mreze*/
+    padding: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75);
+}
+
+#nav   { grid-area: nav; } /*Povezi nav html element z nav grid elementom*/
+#meni  { grid-area: meni; } /*Povezi meni html element z meni grid elementom*/
+#jedro { grid-area: jedro; } /*Povezi jedro html element z jedro grid elementom*/
+
+#mreza > div { /*Vsi div elementi ki so direktni potomci mreze*/
+    background-color: white; /*Modro ozadje mreze*/
+}
+
+#nav {
+  text-align: center; /*Text v navigaciji naj bo osredinjen na sredino*/
+  padding: 20px; /*Notranji razmik naj se poveca*/
+  margin-bottom: 30px; /*Zunanji odmik od spodnjih menijev naj se poveca*/
+}
+
+#nav * { /*Vsi elementi v navigaciji*/
+    margin: 0 30px; /*Razmaki od linkov naj se poveca*/
+    font-size: 30px; /*Povecaj text v navigaciji*/
+}
+
+#slika {
+  width: 100%;
+  max-width: 300px;
+}
+
