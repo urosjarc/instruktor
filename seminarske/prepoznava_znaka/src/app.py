@@ -170,7 +170,7 @@ class GUI(QtWidgets.QMainWindow):
         tdiff = t1-t0
         self.results.sort(key=lambda x: x.matching, reverse=False)
         self.showResult(self.results[0])
-        self.matchInfoL.setText(f'Checked {self.numImg} images in {round(tdiff, 2)} sec. Iteration speed: {round(tdiff/self.numImg, 5)} sec/template!')
+        self.matchInfoL.setText(f'Checked {self.numImg} images in {round(tdiff, 2)} sec... Found {len(self.results)} images... Iteration speed: {round(tdiff/self.numImg, 5)} sec/template!')
 
     def trainingImgChanged(self, value):
         if isinstance(value, str):
