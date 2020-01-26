@@ -57,7 +57,8 @@ class SignInfo:
 
 class Sign:
     def __init__(self, classID):
-        self.info = SignInfo(classID)
+        self.info: SignInfo = SignInfo(classID)
+        self.templates_paths = []
         self.templates = []
     def __str__(self):
         return str(self.info)
@@ -65,10 +66,10 @@ class Sign:
 class Anotation:
 
     def __init__(self, leftCol, topRow, rightCol, bottomRow, classID):
-        self.leftCol = leftCol
-        self.topRow = topRow
-        self.rightCol = rightCol
-        self.bottomRow = bottomRow
+        self.leftCol = int(leftCol)
+        self.topRow = int(topRow)
+        self.rightCol = int(rightCol)
+        self.bottomRow = int(bottomRow)
         self.signInfo = SignInfo(classID)
 
 class TrainingImg:
@@ -79,12 +80,14 @@ class TrainingImg:
         return str(self.imagePath)
 
 class MatchResult:
-    def __init__(self, matching, img, template, method, rectangle):
+    def __init__(self, matching, img, template_path, method, rectangle):
         self.matching = matching
         self.img = img
-        self.template = template
+        self.template_path = template_path
         self.method = method
         self.rectangle = rectangle
+        self.sign: Sign = None
+        self.anotations: List[Anotation] = []
 
     def __str__(self):
         return f'Matching: {round(self.matching*100, 2)} ({self.method})'

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1002</width>
+    <width>807</width>
     <height>538</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <set>QMainWindow::AnimatedDocks</set>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QProgressBar" name="progressBar">
       <property name="value">
@@ -26,22 +26,40 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <widget class="QLabel" name="matchInfoL">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="templateL">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>template</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="templateL">
+          <property name="text">
+           <string>template image</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="templateInfoL">
+          <property name="text">
+           <string>Template info</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignHCenter|Qt::AlignTop</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QLabel" name="imageL">
@@ -86,12 +104,17 @@
         </property>
         <item>
          <property name="text">
-          <string>TM_CCOEFF</string>
+          <string>TM_CCOEFF_NORMED</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>TM_CCOEFF_NORMED</string>
+          <string>TM_CCORR_NORMED</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TM_SQDIFF_NORMED</string>
          </property>
         </item>
        </widget>
@@ -148,17 +171,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1002</width>
-     <height>27</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
