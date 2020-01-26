@@ -137,7 +137,7 @@ class GUI(QtWidgets.QMainWindow):
             self.resultIndex = 0
 
         result = self.results[self.resultIndex]
-        self.showResult(result, showAnotations=False)
+        self.showResult(result)
 
     def prevResult(self):
         self.resultIndex -= 1
@@ -146,7 +146,7 @@ class GUI(QtWidgets.QMainWindow):
             self.resultIndex = len(self.results) - 1
 
         result = self.results[self.resultIndex]
-        self.showResult(result, showAnotations=False)
+        self.showResult(result)
 
     def selectCustomImg(self):
         # Stack owerflow code :) https://stackoverflow.com/questions/44075694/file-dialog-not-working-with-pyqt5
@@ -176,11 +176,19 @@ class GUI(QtWidgets.QMainWindow):
         threshold = self.thresholdSBOX.value()
         t0 = time.clock()
         self.results: List[MatchResult] = self.trainingSet.recognizeImage(self.image, algo, threshold, callback)
+
+        if not showAnotations:
+            for r in self.results:
+                r.show_anotations = True
+        else:
+            for r in self.results:
+                r.show_anotations = False
+
         t1 = time.clock() - t0
         tdiff = t1-t0
         # https://stackoverflow.com/questions/403421/how-to-sort-a-list-of-objects-based-on-an-attribute-of-the-objects
         self.results.sort(key=lambda x: x.matching, reverse=True)
-        self.showResult(self.results[0], showAnotations=showAnotations)
+        self.showResult(self.results[0])
         self.matchInfoL.setText(f'Checked {self.numImg} templates in {round(tdiff, 2)} sec... Found {len(self.results)} matches... Iteration speed: {round(tdiff/self.numImg, 5)} sec/template!')
 
     def trainingImgChanged(self, value):
@@ -207,11 +215,11 @@ class GUI(QtWidgets.QMainWindow):
         pixmap = pixmap.scaled(200, 200, QtCore.Qt.KeepAspectRatio)
         self.templateL.setPixmap(pixmap)
 
-    def showResult(self, result: MatchResult, showAnotations):
+    def showResult(self, result: MatchResult):
         img = result.img.copy() # Preprecim da bi se naslikali rectangly od vseh resultov
 
         # Narise rectangle za anotejsne (z modro)
-        if not showAnotations:
+        if result.show_anotations:
             trainigImg = self.trainingSet.getImage(self.trainingImgCBOX.currentText())
             for ano in trainigImg.anotations:
                 rectangle = ((ano.leftCol, ano.topRow), (ano.rightCol, ano.bottomRow))

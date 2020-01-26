@@ -88,6 +88,7 @@ class MatchResult:
         self.rectangle = rectangle # rectangle na katerem se template slika najdla ((x, y), (x2, y2))
         self.sign: Sign = None # Sign za katerega se je matching najdel
         self.anotations: List[Anotation] = [] # spisek matchingov iz anotiationa
+        self.show_anotations = True
 
     def __str__(self):
         return f'Matching: {round(self.matching*100, 2)} ({self.method})'
