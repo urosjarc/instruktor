@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>807</width>
-    <height>538</height>
+    <width>1044</width>
+    <height>647</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,6 +41,12 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QLabel" name="templateL">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>template image</string>
           </property>
@@ -51,6 +57,12 @@
         </item>
         <item>
          <widget class="QLabel" name="templateInfoL">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Template info</string>
           </property>
@@ -81,6 +93,26 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Matching threshold</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QDoubleSpinBox" name="thresholdSBOX">
+        <property name="maximum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.970000000000000</double>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QLabel" name="label_2">
         <property name="minimumSize">
@@ -146,6 +178,13 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="prevResultBTN">
+        <property name="text">
+         <string>Show previous result</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="nextResultBTN">
         <property name="text">

@@ -115,6 +115,7 @@ class GUI(QtWidgets.QMainWindow):
         uic.loadUi('app.ui', self)
 
         self.nextResultBTN.clicked.connect(self.nextResult)
+        self.prevResultBTN.clicked.connect(self.prevResult)
         self.trainingImgCBOX.currentTextChanged.connect(self.trainingImgChanged)
         self.selectCustomImgBTN.clicked.connect(self.selectCustomImg)
         self.matchBTN.clicked.connect(self.match)
@@ -128,6 +129,15 @@ class GUI(QtWidgets.QMainWindow):
 
         if self.resultIndex >= len(self.results):
             self.resultIndex = 0
+
+        result = self.results[self.resultIndex]
+        self.showResult(result)
+
+    def prevResult(self):
+        self.resultIndex -= 1
+
+        if self.resultIndex <= 0:
+            self.resultIndex = len(self.results) - 1
 
         result = self.results[self.resultIndex]
         self.showResult(result)
@@ -153,10 +163,12 @@ class GUI(QtWidgets.QMainWindow):
             self.repaint()
 
         algo = self.matchingClassCBOX.currentText()
-        t0= time.clock()
-        self.results: List[MatchResult] = self.trainingSet.recognizeImage(self.image, algo, 0.90, callback)
+        threshold = self.thresholdSBOX.value()
+        t0 = time.clock()
+        self.results: List[MatchResult] = self.trainingSet.recognizeImage(self.image, algo, threshold, callback)
         t1 = time.clock() - t0
         tdiff = t1-t0
+        self.results.sort(key=lambda x: x.matching, reverse=False)
         self.showResult(self.results[0])
         self.matchInfoL.setText(f'Checked {self.numImg} images in {round(tdiff, 2)} sec. Iteration speed: {round(tdiff/self.numImg, 5)} sec/template!')
 
