@@ -1,3 +1,7 @@
+# Instalacija
+
+    pip install -r requirements.txt
+    
 # Example
 
 * [Data set](https://sid.erda.dk/public/archives/ff17dc924eba88d5d01a807357d6614c/published-archive.html)

@@ -1,0 +1,6 @@
+pyqtgraph
+numpy
+opencv-python
+Pillow
+PyQt5
+PyQt5-stubs
