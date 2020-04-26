@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QEventLoop, QTimer
 from PyQt5.QtWidgets import QLabel, QMainWindow, QApplication, QWidget, QVBoxLayout, QPushButton
 from PyQt5.QtGui import QPixmap, QTransform, QColor, QPainter
 from PyQt5 import uic
@@ -12,9 +13,9 @@ class Menu(QMainWindow):
         uic.loadUi('main.ui', self)
 
         self.startingClick = []
-        self.pixmap1 = None
+        self.pixmap = []
+        self.pixmap_end = []
         self.pixmap1_done = False
-        self.pixmap2 = None
 
         self.image1PB.clicked.connect(self.selectImg1)
         self.image2PB.clicked.connect(self.selectImg2)
@@ -26,16 +27,14 @@ class Menu(QMainWindow):
         self.show()
 
     def selectImg1(self):
-        self.pixmap1 = QPixmap('../data/slika1.png')
-        self.imageL.setPixmap(self.pixmap1)
-        self.resizeWindow(self.pixmap1.width(), self.pixmap1.height())
-        print("select img 1")
+        self.pixmap.append(QPixmap('../data/slika1.png'))
+        self.imageL.setPixmap(self.pixmap[-1])
+        self.resizeWindow(self.pixmap[-1].width(), self.pixmap[-1].height())
 
     def selectImg2(self):
-        self.pixmap2 = QPixmap('../data/slika1R.png')
-        self.imageL.setPixmap(self.pixmap2)
-        self.resizeWindow(self.pixmap2.width(), self.pixmap2.height())
-        print("select img 2")
+        self.pixmap.append(QPixmap('../data/slika1R.png'))
+        self.imageL.setPixmap(self.pixmap[-1])
+        self.resizeWindow(self.pixmap[-1].width(), self.pixmap[-1].height())
 
     def startingPosition(self , event):
         self.startingClick.append([
@@ -62,28 +61,47 @@ class Menu(QMainWindow):
         V1len = (V1x**2 + V1y**2) ** 0.5
 
         # CALCULATING DEG
-        deg = math.acos((V1x*V2x + V1y*V2y)/(V1len*V2len))
+        deg = math.degrees(math.acos((V1x*V2x + V1y*V2y)/(V1len*V2len)))
 
-        tra = QTransform()
-        # tra.translate(-V2x, -V2y)
-        # tra.rotate(math.degrees(deg))
-
-        if not self.pixmap1_done:
-            self.pixmap1 = self.pixmap1.transformed(tra)
-            self.pixmap1_done = True
+        if len(self.pixmap_end) == 0:
+            self.makeEndPixmap(deg)
+            self.drawImage()
+            self.sleep()
             self.selectImg2()
         else:
-            self.pixmap2 = self.pixmap2.transformed(tra)
+            self.makeEndPixmap(deg)
+            self.drawImage()
+            self.sleep()
             self.merge()
 
-    def merge(self):
-        pixmap3=QPixmap(self.pixmap2.width()*2, self.pixmap2.height()*2)
+    def drawImage(self):
+        self.imageL.setPixmap(self.pixmap_end[-1])
+        self.resizeWindow(900,900)
+
+    def makeEndPixmap(self, d):
+        p = self.pixmap[-1]
+        siz = 600
+        pixmap3=QPixmap(siz,siz)
         pixmap3.fill(QColor("transparent"))
         painter= QPainter(pixmap3)
-        dx = self.startingClick[1][0] - self.startingClick[0][0]
-        dy = self.startingClick[1][1] - self.startingClick[0][1]
-        painter.drawPixmap(-dx, -dy, self.pixmap2.width(), self.pixmap2.height(), self.pixmap2)
-        painter.drawPixmap(0,0, self.pixmap1.width(), self.pixmap1.height(), self.pixmap1)
+        painter.drawPixmap(siz/2-self.startingClick[-1][0], siz/2-self.startingClick[-1][1], p)
+        painter.end()
+        tran = QTransform()
+        tran.rotate(d)
+        pixmap3 = pixmap3.transformed(tran)
+        self.pixmap_end.append(pixmap3)
+
+    def sleep(self):
+        loop = QEventLoop()
+        QTimer.singleShot(2000, loop.quit)
+        loop.exec_()
+
+    def merge(self):
+        pixmap3=QPixmap(900,900)
+        pixmap3.fill(QColor("transparent"))
+        painter= QPainter(pixmap3)
+        for i, p in enumerate(self.pixmap_end):
+            painter.drawPixmap(0,0, p.width(), p.height(), p)
         painter.end()
 
         self.imageL.setPixmap(pixmap3)
