@@ -1,10 +1,10 @@
-from PyQt5.QtCore import QEventLoop, QTimer
-from PyQt5.QtWidgets import QLabel, QMainWindow, QApplication, QWidget, QVBoxLayout, QPushButton, QFileDialog, \
-    QInputDialog, QMessageBox
-from PyQt5.QtGui import QPixmap, QTransform, QColor, QPainter
-from PyQt5 import uic
-import sys
 import math
+import sys
+
+from PyQt5 import uic
+from PyQt5.QtGui import QPixmap, QTransform, QColor, QPainter
+from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog, \
+    QInputDialog, QMessageBox
 
 
 class Menu(QMainWindow):
@@ -53,12 +53,12 @@ class Menu(QMainWindow):
             dX = self.geoReference[1][0] - self.geoReference[0][0]
             dY = self.geoReference[1][1] - self.geoReference[0][1]
 
-            XCor = dXCor/dX * (x - self.geoReference[0][0]) + self.geoCordinates[0][0]
-            YCor = dYCor/dY * (y - self.geoReference[0][1]) + self.geoCordinates[0][1]
+            XCor = dXCor / dX * (x - self.geoReference[0][0]) + self.geoCordinates[0][0]
+            YCor = dYCor / dY * (y - self.geoReference[0][1]) + self.geoCordinates[0][1]
 
             msg = QMessageBox()
             msg.setWindowTitle("Cordinates")
-            msg.setText(f"Chosen cordinates: x={round(XCor,2)} y={round(YCor,2)}")
+            msg.setText(f"Chosen cordinates: x={round(XCor, 2)} y={round(YCor, 2)}")
             msg.exec_()
 
     def getDouble(self, title, question):
