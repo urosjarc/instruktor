@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>116</width>
-    <height>168</height>
+    <width>78</width>
+    <height>65</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,45 +22,20 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="imageL">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Image 1</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="image1PB">
-        <property name="text">
-         <string>First image</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="image2PB">
-        <property name="text">
-         <string>Second image</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="joinPB">
-        <property name="text">
-         <string>Merge images</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QLabel" name="imageL">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Image 1</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
