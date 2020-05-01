@@ -1,0 +1,69 @@
+@startuml
+
+class World {
+    int fireIndex
+    int badGuysIndex
+    int indiansIndex
+    int waterIndex
+    int width
+    int height
+    int secondsToLive
+
+    Hero hero
+    IndianTeam indianTeams[]
+    Fire fires[]
+    Tree trees[]
+    BadGuy badGuys[]
+
+    bool isDestroyed()
+    void checkWarriorCollisions()
+    void checkFireCollisions()
+    void nextIteration()
+}
+
+class Hero: Warrior {
+    bool isAlive
+    string name
+    int reputation
+
+    Tree plantTree()
+    void move(int dx, int dy)
+}
+
+class Indian: Warrior {
+    int seeingRadius
+    bool panicMode
+}
+
+class IndianTeam {
+    string name
+    int x
+    int y
+
+    Indian indians[]
+}
+
+class Fire {
+    int x
+    int y
+    int radius
+}
+
+class Warrior {
+    int invincibleRadius
+    bool invincible
+    int x
+    int y
+    void move()
+}
+
+class BadGuy: Warrior {
+}
+
+class Tree {
+    bool isAlive
+    int x
+    int y
+}
+
+@enduml

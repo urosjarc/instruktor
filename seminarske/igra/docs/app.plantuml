@@ -1,0 +1,38 @@
+class Simbols {
+    char hero = "X"
+    char badGuy = "O"
+    char tree = "t"
+    char deadTree = "_"
+    char indian = "A"
+    char fire = "W"
+    char indianTeam = "I"
+}
+
+class Colors {
+    char hero = "crna"
+    char badGuy = "bela"
+    char tree = "green"
+    char deadTree = "modra"
+    char indian = "brown"
+    char fire = "oranzna"
+    char indianTeam = "crnoRjava"
+}
+
+class Terminal:Game {
+    void draw()
+    void input()
+}
+
+class Window:Game {
+    void draw()
+    void input()
+}
+
+class Game {
+    int level
+    World world
+    void saveWorld()
+    void createWorld()
+    void draw()
+    void input()
+}
