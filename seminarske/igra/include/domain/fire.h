@@ -7,10 +7,7 @@
 
 class Fire {
 public:
-    Fire(int x, int y) {
-        this->x = x;
-        this->y = y;
-    }
+    Fire(int x, int y);
 
     int x;
     int y;

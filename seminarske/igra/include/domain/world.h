@@ -20,24 +20,7 @@ public:
         int waterIndex,
         int width,
         int height,
-        int secondsToLive) {
-
-        this->hero = hero;
-        this->fireIndex = fireIndex;
-        this->badGuysIndex = badGuysIndex;
-        this->indiansIndex = indiansIndex;
-        this->waterIndex = waterIndex;
-        this->width = width;
-        this->height = height;
-        this->secondsToLive = secondsToLive;
-
-        for (int x = 0; x < this->width; ++x) {
-            for (int y = 0; y < this->height; ++y) {
-                auto tree = new Tree(x, y);
-                this->trees.push_back(tree);
-            }
-        }
-    }
+        int secondsToLive);
 
     int fireIndex;
     int badGuysIndex;

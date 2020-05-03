@@ -9,11 +9,11 @@
 
 class Terminal: public Game {
 public:
-    Terminal(int level) : Game(level) {
-    }
-    void createWorld();
-    void draw();
-    void input();
+    Terminal(int level);
+    void createWorld() override ;
+    void draw() override ;
+    void close() override ;
+    void input() override ;
 };
 
 #endif //IGRA_TERMINAL_H

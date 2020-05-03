@@ -9,8 +9,7 @@
 
 class BadGuy: public Warrior {
 public:
-    BadGuy(int x, int y, int invincibleRadius = 4) : Warrior(x, y, invincibleRadius) {
-    }
+    BadGuy(int x, int y, int invincibleRadius = 4);
 
 };
 

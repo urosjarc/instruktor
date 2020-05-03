@@ -3,4 +3,9 @@
 //
 
 
-#include "../../include/domain/tree.h"
+#include "domain/tree.h"
+
+Tree::Tree(int x, int y) {
+    this->x = x;
+    this->y = y;
+}

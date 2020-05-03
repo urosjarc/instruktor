@@ -7,11 +7,7 @@
 
 class Warrior {
 public:
-    Warrior(int x, int y, int invincibleRadius = 4){
-        this->x = x;
-        this->y = y;
-        this->invincibleRadius = invincibleRadius;
-    }
+    Warrior(int x, int y, int invincibleRadius = 4);
     int invincibleRadius;
     bool invincible = false;
     int y;

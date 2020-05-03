@@ -7,10 +7,7 @@
 
 class Tree {
 public:
-    Tree(int x, int y) {
-        this->x = x;
-        this->y = y;
-    }
+    Tree(int x, int y);
     bool isAlive = true;
     int x;
     int y;

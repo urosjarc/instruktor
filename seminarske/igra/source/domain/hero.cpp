@@ -3,7 +3,7 @@
 //
 
 
-#include "../../include/domain/hero.h"
+#include "domain/hero.h"
 #include <iostream>
 
 
@@ -15,6 +15,11 @@ Tree* Hero::plantTree(int x, int y) {
     std::cout << this << " plantTree" << std::endl;
     static auto tree = Tree(x, y);
     return &tree;
+}
+
+Hero::Hero(int x, int y, int invincibleRadius) : Warrior(x, y, invincibleRadius) {
+    this->x = x;
+    this->y = y;
 }
 
 

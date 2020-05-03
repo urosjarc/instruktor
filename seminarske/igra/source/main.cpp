@@ -1,17 +1,14 @@
-#include "domain/bad_guy.cpp"
-#include "domain/fire.cpp"
-#include "domain/hero.cpp"
-#include "domain/indian_team.cpp"
-#include "domain/indian.cpp"
-#include "domain/world.cpp"
-#include "domain/warrior.cpp"
-#include "app/terminal.cpp"
+#include <iostream>
+#include "app/window.h"
+#include "app/terminal.h"
+
+using namespace std;
 
 int main() {
-    auto game = new Terminal(0);
+    auto game = new Window(0);
+
 
     game->createWorld();
-
     game->draw();
 
     while(!game->world->isDestroyed()){
@@ -19,6 +16,10 @@ int main() {
         game->world->nextIteration();
         game->draw();
     }
+
+    game->saveWorld();
+    game->close();
+
 
     return 0;
 }

@@ -11,14 +11,8 @@
 
 class IndianTeam {
 public:
-    IndianTeam(int x, int y){
-        this->x = x;
-        this->y = y;
-
-        auto indian = new Indian(x, y);
-        this->indians.push_back(indian);
-    }
-    char name[10];
+    IndianTeam(int x, int y);
+    char name[10]{};
     int x;
     int y;
 

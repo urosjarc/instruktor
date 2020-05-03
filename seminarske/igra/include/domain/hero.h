@@ -11,10 +11,7 @@
 
 class Hero: public Warrior {
 public:
-    Hero(int x, int y, int invincibleRadius = 4) : Warrior(x, y, invincibleRadius) {
-        this->x = x;
-        this->y = y;
-    }
+    Hero(int x, int y, int invincibleRadius = 4);
     bool isAlive = true;
     char name[10];
     int reputation = 0;

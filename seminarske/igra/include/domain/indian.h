@@ -9,11 +9,7 @@
 
 class Indian: public Warrior {
 public:
-    Indian(int x, int y, int invincibleRadius = 4, int seeingRadius = 4) : Warrior(x, y, invincibleRadius) {
-        this->x = x;
-        this->y = y;
-        this->seeingRadius = seeingRadius;
-    }
+    Indian(int x, int y, int invincibleRadius = 4, int seeingRadius = 4);
     int seeingRadius;
     bool panicMode = false;
 };

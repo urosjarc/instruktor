@@ -5,24 +5,20 @@
 #ifndef IGRA_GAME_H
 #define IGRA_GAME_H
 
-#include "../domain/world.h"
+#include "domain/world.h"
 
 class Game {
 public:
-    Game(int level=1) {
-        this->level = level;
-    }
+    Game(int level=1);
 
     int level;
     World *world;
 
-//    void saveWorld();
-//
-//    virtual void draw();
-//
-//    virtual void input();
-//
-//    virtual void createWorld();
+    virtual void saveWorld();
+    virtual void draw();
+    virtual void input();
+    virtual void close();
+    virtual void createWorld();
 };
 
 #endif //IGRA_GAME_H
