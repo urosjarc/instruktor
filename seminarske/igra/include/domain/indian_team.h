@@ -10,11 +10,20 @@
 #include "indian.h"
 
 class IndianTeam {
+
     char name[10];
     int x;
     int y;
 
     std::vector<Indian*> indians;
+public:
+    IndianTeam(int x, int y){
+        this->x = x;
+        this->y = y;
+
+        auto indian = new Indian(x, y);
+        this->indians.push_back(indian);
+    }
 };
 
 #endif //IGRA_INDIAN_TEAM_H

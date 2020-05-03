@@ -4,14 +4,18 @@
 
 
 #include "../../include/domain/hero.h"
+#include <iostream>
+
 
 void Hero::move(int dx, int dy) {
     std::cout << this << " move" << std::endl;
 
 }
-Tree Hero::plantTree() {
+Tree* Hero::plantTree(int x, int y) {
     std::cout << this << " plantTree" << std::endl;
-    return Tree();
+    static auto tree = Tree(x, y);
+    return &tree;
 }
+
 
 

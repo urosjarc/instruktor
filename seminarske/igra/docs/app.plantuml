@@ -1,3 +1,5 @@
+@startuml
+
 class Simbols {
     char hero = "X"
     char badGuy = "O"
@@ -36,3 +38,5 @@ class Game {
     void draw()
     void input()
 }
+
+@enduml

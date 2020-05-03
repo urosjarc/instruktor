@@ -9,8 +9,13 @@
 
 class Indian: Warrior {
 public:
+    Indian(int x, int y, int invincibleRadius = 4, int seeingRadius = 4) : Warrior(x, y, invincibleRadius) {
+        this->x = x;
+        this->y = y;
+        this->seeingRadius = seeingRadius;
+    }
     int seeingRadius;
-    bool panicMode;
+    bool panicMode = false;
 };
 
 #endif //IGRA_INDIAN_H

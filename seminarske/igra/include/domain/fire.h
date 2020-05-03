@@ -6,9 +6,15 @@
 #define IGRA_FIRE_H
 
 class Fire {
+public:
+    Fire(int x, int y) {
+        this->x = x;
+        this->y = y;
+    }
+
     int x;
     int y;
-    int radius;
+    int radius = 0;
 };
 
 #endif //IGRA_FIRE_H

@@ -7,10 +7,17 @@
 
 class Warrior {
 public:
+    Warrior(int x, int y, int invincibleRadius = 4){
+        this->x = x;
+        this->y = y;
+        this->invincibleRadius = invincibleRadius;
+    }
     int invincibleRadius;
-    bool invincible;
-    int x;
+    bool invincible = false;
     int y;
+
+    int x;
+
     void move();
 };
 

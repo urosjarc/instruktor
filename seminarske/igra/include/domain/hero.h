@@ -11,11 +11,15 @@
 
 class Hero: Warrior {
 public:
-    bool isAlive;
+    Hero(int x, int y, int invincibleRadius = 4) : Warrior(x, y, invincibleRadius) {
+        this->x = x;
+        this->y = y;
+    }
+    bool isAlive = true;
     char name[10];
-    int reputation;
+    int reputation = 0;
 
-    Tree plantTree();
+    Tree* plantTree(int x, int y);
     void move(int dx, int dy);
 };
 

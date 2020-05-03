@@ -6,7 +6,12 @@
 #define IGRA_TREE_H
 
 class Tree {
-    bool isAlive;
+public:
+    Tree(int x, int y) {
+        this->x = x;
+        this->y = y;
+    }
+    bool isAlive = true;
     int x;
     int y;
 };
