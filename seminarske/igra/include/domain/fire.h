@@ -14,7 +14,7 @@ public:
 
     int x;
     int y;
-    int radius = 0;
+    float radius = 0;
 };
 
 #endif //IGRA_FIRE_H

@@ -7,7 +7,7 @@
 
 #include "warrior.h"
 
-class Indian: Warrior {
+class Indian: public Warrior {
 public:
     Indian(int x, int y, int invincibleRadius = 4, int seeingRadius = 4) : Warrior(x, y, invincibleRadius) {
         this->x = x;

@@ -9,20 +9,20 @@
 
 class Game {
 public:
-    Game(int level) {
+    Game(int level=1) {
         this->level = level;
     }
 
     int level;
     World *world;
 
-    void saveWorld();
-
-    void draw();
-
-    void input();
-
-    void createWorld();
+//    void saveWorld();
+//
+//    virtual void draw();
+//
+//    virtual void input();
+//
+//    virtual void createWorld();
 };
 
 #endif //IGRA_GAME_H

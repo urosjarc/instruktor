@@ -8,8 +8,8 @@
 
 
 void Hero::move(int dx, int dy) {
-    std::cout << this << " move" << std::endl;
-
+    this->y += dy;
+    this->x += dx;
 }
 Tree* Hero::plantTree(int x, int y) {
     std::cout << this << " plantTree" << std::endl;

@@ -15,7 +15,6 @@ public:
     int invincibleRadius;
     bool invincible = false;
     int y;
-
     int x;
 
     void move();

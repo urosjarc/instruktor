@@ -9,7 +9,7 @@
 #include "tree.h"
 #include "warrior.h"
 
-class Hero: Warrior {
+class Hero: public Warrior {
 public:
     Hero(int x, int y, int invincibleRadius = 4) : Warrior(x, y, invincibleRadius) {
         this->x = x;

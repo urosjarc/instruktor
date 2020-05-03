@@ -10,10 +10,13 @@
 int main() {
     auto game = new Terminal(0);
 
+    game->createWorld();
+
     game->draw();
 
-    while(true){
+    while(!game->world->isDestroyed()){
         game->input();
+        game->world->nextIteration();
         game->draw();
     }
 

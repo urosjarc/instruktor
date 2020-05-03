@@ -7,10 +7,9 @@
 
 #include "game.h"
 
-class Terminal: Game {
+class Terminal: public Game {
 public:
     Terminal(int level) : Game(level) {
-        this->createWorld();
     }
     void createWorld();
     void draw();

@@ -10,12 +10,6 @@
 #include "indian.h"
 
 class IndianTeam {
-
-    char name[10];
-    int x;
-    int y;
-
-    std::vector<Indian*> indians;
 public:
     IndianTeam(int x, int y){
         this->x = x;
@@ -24,6 +18,11 @@ public:
         auto indian = new Indian(x, y);
         this->indians.push_back(indian);
     }
+    char name[10];
+    int x;
+    int y;
+
+    std::vector<Indian*> indians;
 };
 
 #endif //IGRA_INDIAN_TEAM_H
