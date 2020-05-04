@@ -21,7 +21,7 @@ public:
     void close() override ;
     void createWorld() override ;
     void draw() override ;
-    void input() override ;
+    Event input() override ;
 
 };
 

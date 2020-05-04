@@ -4,8 +4,6 @@
 #include "domain/world.h"
 #include "app/utils.h"
 
-using namespace std;
-
 bool World::isDestroyed() {
     float treesDest = 0;
 
@@ -37,13 +35,13 @@ void World::checkWarriorCollisions() {
     }
 }
 void World::checkFireCollisions() {
-    cout << this << " checkFireCollisions"<< endl;
+    std::cout << this << " checkFireCollisions\n";
 }
 void World::nextIteration() {
 
     for (int i = 0; i < this->badGuys.size(); ++i) {
-        int dx = randomInt(-2, 2);
-        int dy = randomInt(-2, 2);
+        int dx = randomInt(-1, 1);
+        int dy = randomInt(-1, 1);
         this->badGuys[i]->x += dx; //Todo implement this in .move()
         this->badGuys[i]->y += dy; //Todo implement this in .move()
     }
@@ -51,8 +49,8 @@ void World::nextIteration() {
     for (int i = 0; i < this->indianTeams.size(); ++i) {
         for (int j = 0; j < this->indianTeams[i]->indians.size(); ++j) {
             auto pIndian = this->indianTeams[i]->indians[j];
-            int dx = randomInt(-2, 2);
-            int dy = randomInt(-2, 2);
+            int dx = randomInt(-1, 1);
+            int dy = randomInt(-1, 1);
             pIndian->x += dx; //Todo implement this in .move()
             pIndian->y += dy; //Todo implement this in .move()
         }

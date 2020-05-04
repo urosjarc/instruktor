@@ -12,7 +12,7 @@ void Hero::move(int dx, int dy) {
     this->x += dx;
 }
 Tree* Hero::plantTree(int x, int y) {
-    std::cout << this << " plantTree" << std::endl;
+    std::cout << this << " plantTree\n";
     static auto tree = Tree(x, y);
     return &tree;
 }

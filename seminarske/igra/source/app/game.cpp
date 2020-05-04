@@ -1,4 +1,5 @@
 
+#include <app/events.h>
 #include "app/game.h"
 
 void Game::saveWorld() {
@@ -45,8 +46,8 @@ void Game::draw() {
 
 }
 
-void Game::input() {
-
+Event Game::input() {
+    return Event::noInput;
 }
 void Game::close() {
 

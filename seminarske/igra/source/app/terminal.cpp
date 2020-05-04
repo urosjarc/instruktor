@@ -1,17 +1,16 @@
 
 #include <iostream>
 #include <cmath>
+#include <app/events.h>
 
 #include "app/terminal.h"
 #include "app/simbols.h"
-
-using namespace std;
 
 void Terminal::draw() {
     for (int y = 0; y < this->world->height; ++y) {
         for (int x = 0; x < this->world->width; ++x) {
             if (x == this->world->hero->x && y == this->world->hero->y) {
-                cout << (char) hero;
+                std::cout << (char) hero;
                 continue;
             }
 
@@ -21,7 +20,7 @@ void Terminal::draw() {
             bool isBadGuy = false;
             for (int i = 0; i < this->world->badGuys.size(); ++i) {
                 if (x == this->world->badGuys[i]->x && y == this->world->badGuys[i]->y) {
-                    cout << (char) badGuy;
+                    std::cout << (char) badGuy;
                     isBadGuy = true;
                     break;
                 }
@@ -34,7 +33,7 @@ void Terminal::draw() {
             bool isIndianTeam = false;
             for (int i = 0; i < this->world->indianTeams.size(); ++i) {
                 if (x == this->world->indianTeams[i]->x && y == this->world->indianTeams[i]->y) {
-                    cout << (char) indianTeam;
+                    std::cout << (char) indianTeam;
                     isIndianTeam = true;
                     break;
                 }
@@ -42,7 +41,7 @@ void Terminal::draw() {
                 for (int j = 0; j < this->world->indianTeams[i]->indians.size(); ++j) {
                     auto pIndian = this->world->indianTeams[i]->indians[j];
                     if(pIndian->x == x && pIndian->y == y) {
-                        cout << (char) indian;
+                        std::cout << (char) indian;
                         break;
                     }
                 }
@@ -59,29 +58,30 @@ void Terminal::draw() {
                 float dist = pow(pow(dx, 2) + pow(dy, 2), 0.5); // (dx^2 + dy^2)^(1/2)
 
                 if (dist < this->world->fires[i]->radius) {
-                    cout << (char) fire;
+                    std::cout << (char) fire;
                     isFire = true;
                     break;
                 }
             }
             if (isFire) continue;
 
-            cout << (char) tree;
+            std::cout << (char) tree;
         }
-        cout << endl;
+        std::cout << '\n';
     }
 }
 
-void Terminal::input() {
+Event Terminal::input() {
     int dx, dy;
 
-    cout << "Vnesi hero->dx: ";
-    cin >> dx;
+    std::cout << "Vnesi hero->dx: ";
+    std::cin >> dx;
 
-    cout << "Vnesi hero->dy: ";
-    cin >> dy;
+    std::cout << "Vnesi hero->dy: ";
+    std::cin >> dy;
 
     this->world->hero->move(dx, dy);
+    return Event::input;
 }
 
 void Terminal::createWorld() {

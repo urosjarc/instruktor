@@ -5,11 +5,9 @@
 #include <iostream>
 #include "domain/warrior.h"
 
-using namespace std;
-
 void Warrior::move() {
 
-    cout << this << " move" << endl;
+    std::cout << this << " move\n";
 
 }
 

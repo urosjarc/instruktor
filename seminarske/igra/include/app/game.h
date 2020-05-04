@@ -16,7 +16,7 @@ public:
 
     virtual void saveWorld();
     virtual void draw();
-    virtual void input();
+    virtual Event input();
     virtual void close();
     virtual void createWorld();
 };

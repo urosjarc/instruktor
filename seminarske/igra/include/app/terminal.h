@@ -13,7 +13,7 @@ public:
     void createWorld() override ;
     void draw() override ;
     void close() override ;
-    void input() override ;
+    Event input() override ;
 };
 
 #endif //IGRA_TERMINAL_H
