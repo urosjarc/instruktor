@@ -21,7 +21,7 @@ class World {
     void nextIteration()
 }
 
-class Hero: Warrior {
+class Hero {
     bool isAlive
     string name
     int reputation
@@ -30,7 +30,7 @@ class Hero: Warrior {
     void move(int dx, int dy)
 }
 
-class Indian: Warrior {
+class Indian {
     int seeingRadius
     bool panicMode
 }
@@ -57,7 +57,7 @@ class Warrior {
     void move()
 }
 
-class BadGuy: Warrior {
+class BadGuy {
 }
 
 class Tree {

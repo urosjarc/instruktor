@@ -1,9 +1,10 @@
 #include <app/events.h>
 #include "app/window.h"
 #include "app/terminal.h"
+#include <cmath>
 
 int main() {
-    auto game = new Window(0);
+    auto game = new Terminal(0);
 
     game->createWorld();
     game->draw();
@@ -23,4 +24,3 @@ int main() {
 
     return 0;
 }
-

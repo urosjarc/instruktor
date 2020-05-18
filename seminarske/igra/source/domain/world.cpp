@@ -3,6 +3,7 @@
 
 #include "domain/world.h"
 #include "app/utils.h"
+#include <cmath>
 
 bool World::isDestroyed() {
     float treesDest = 0;
@@ -35,7 +36,19 @@ void World::checkWarriorCollisions() {
     }
 }
 void World::checkFireCollisions() {
-    std::cout << this << " checkFireCollisions\n";
+    for ( Fire* it:fires) {
+
+        double distance = sqrt(pow(it->x - hero->x, 2) + pow(it->y - hero->y, 2));
+        if (it->radius > distance) {
+            it->radius = 0;
+        }
+        for (Tree* tree : trees) {
+            distance = sqrt(pow(it->x - tree->x, 2) + pow(it->y - tree->y,2));
+            if (distance < it->radius) {
+                tree->isAlive = false;
+            }
+        }
+    }
 }
 void World::nextIteration() {
 

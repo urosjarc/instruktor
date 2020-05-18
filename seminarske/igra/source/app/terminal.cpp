@@ -9,6 +9,7 @@
 void Terminal::draw() {
     for (int y = 0; y < this->world->height; ++y) {
         for (int x = 0; x < this->world->width; ++x) {
+
             if (x == this->world->hero->x && y == this->world->hero->y) {
                 std::cout << (char) hero;
                 continue;
@@ -65,7 +66,12 @@ void Terminal::draw() {
             }
             if (isFire) continue;
 
-            std::cout << (char) tree;
+            for(Tree* t: this->world->trees){
+                if(t->x == x && t->y == y){
+                    if(t->isAlive) std::cout << (char) tree;
+                    else std::cout << (char) deadTree;
+                }
+            }
         }
         std::cout << '\n';
     }

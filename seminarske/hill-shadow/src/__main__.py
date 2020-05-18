@@ -1,15 +1,15 @@
 import numpy as np
-from math import atan, sqrt, atan2, pi, cos, sin
+from math import atan, sqrt, atan2, pi, cos, sin, radians
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-zenith = int(input("Vnesi zenith: "))
-azimuth = int(input("Vnesi azimuth: "))
+zenith = radians(float(input("Vnesi zenith: ")))
+azimuth = radians(float(input("Vnesi azimuth: ")))
 
 def rgb2gray(rgb):
     return np.dot(rgb[..., :3], [0.2989, 0.5870, 0.1140])
 
-img = mpimg.imread('../data/mb-center_vhod.tif')
+img = mpimg.imread('../data/mb-center_vhod2.tif')
 gray = rgb2gray(img)
 
 shading = []
@@ -48,5 +48,5 @@ for y in range(1, len(gray) - 1):
 
         shading[-1].append(shadow)
 
-plt.imshow(shading, cmap=plt.get_cmap('gray'), vmin=0, vmax=1)
+plt.imshow(shading)
 plt.show()
