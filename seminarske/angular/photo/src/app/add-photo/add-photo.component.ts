@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AddPhotoComponent implements OnInit {
 
 fileToUpload: File = null;
-photo:Photo={name:'',_id:'',path:''};
+photo:Photo={name:'',_id:'',path:'', likes: 0, views: 0};
   constructor(private photoService: PhotoService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {

@@ -40,7 +40,17 @@ module.exports = {
                     message: 'No such photo'
                 });
             }
-            return res.json(photo);
+            photo.views++;
+            photo.save(function (err, photo) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Error when updating photo.',
+                        error: err
+                    });
+                }
+
+                return res.json(photo);
+            });
         });
     },
 
@@ -53,6 +63,8 @@ module.exports = {
     },
 
     create: function (req, res) {
+        console.log("CREATE PHOTO: " + JSON.stringify(req.body,null, 4));
+
         var photo = new photoModel({
 			name : req.body.name,
 			path : 'images/'+req.file.filename,
@@ -77,6 +89,9 @@ module.exports = {
      */
     update: function (req, res) {
         var id = req.params.id;
+
+        console.log(JSON.stringify(req.body, null, 4));
+
         photoModel.findOne({_id: id}, function (err, photo) {
             if (err) {
                 return res.status(500).json({
@@ -94,7 +109,11 @@ module.exports = {
 			photo.path = req.body.path ? req.body.path : photo.path;
 			photo.views = req.body.views ? req.body.views : photo.views;
 			photo.likes = req.body.likes ? req.body.likes : photo.likes;
-			
+
+			photo.views = Number(photo.views);
+            photo.likes = Number(photo.likes);
+
+
             photo.save(function (err, photo) {
                 if (err) {
                     return res.status(500).json({
@@ -117,6 +136,18 @@ module.exports = {
             if (err) {
                 return res.status(500).json({
                     message: 'Error when deleting the photo.',
+                    error: err
+                });
+            }
+            return res.status(204).json();
+        });
+    },
+
+    removeAll: function (req, res) {
+        photoModel.remove({}, function (err) {
+            if (err) {
+                return res.status(500).json({
+                    message: 'Error when deleting photos.',
                     error: err
                 });
             }

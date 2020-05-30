@@ -31,7 +31,7 @@ router.get('/:id', photoController.show);
  */
  //post zahteva na naslov najprej shrani datoteko, ki je bila na naslov posredovana z imenom slika
 //ta se shrani v mapo /public/slike, na voljo pa imamo req.file, kjer so vsi podatki o sliki
-//poleg same slike pričakujemo tudi lastnost ime, ki nosi podatek o naslovu (imenu) slike 
+//poleg same slike pričakujemo tudi lastnost ime, ki nosi podatek o naslovu (imenu) slike
 router.post('/',requiresLogin,upload.single('slika'), photoController.create);
 
 /*
@@ -43,5 +43,7 @@ router.put('/:id', photoController.update);
  * DELETE
  */
 router.delete('/:id', photoController.remove);
+
+router.get('/delete/all', photoController.removeAll);
 
 module.exports = router;

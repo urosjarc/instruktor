@@ -92,7 +92,6 @@ module.exports = {
      */
 
     register: function (req, res,next) {
-        console.log(JSON.stringify(req.body, null, 4));
         userModel.register(req.body.username, req.body.password, req.body.email, function (error, user) {
             if (error || !user) {
                 var err = new Error('Could not register!.');

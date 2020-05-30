@@ -1,8 +1,10 @@
-<h3> Naslov in ocena slike! </h3>
+<a class="btn btn-primary" (click)="likePhoto()" role="button">Like this photo!</a>
 <div class="card bg-dark text-dark mb-2">
   <img class="card-img" src="{{photoHost+photo.path}}" alt="{{photo.name}}">
   <div class="card-img-overlay">
     <h5 class="card-title">{{photo.name}}</h5>
+    <h5 class="card-title">Views: {{photo.views}}</h5>
+    <h5 class="card-title">Likes: {{photo.likes}}</h5>
   </div>
 </div>
 <div>
