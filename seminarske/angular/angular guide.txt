@@ -1,0 +1,65 @@
+﻿Najprej je potrebno namestiti strežniški del aplikacije (photowall.zip), ki je napisan v expressu.
+Strežniška aplikacija je enaka kot iz vaje 4, v app.js (v:30) je dodan segment CORS, ki omogoča zahteve iz druge domene/protokola.
+Slednji potrebuje bazo mongo, v kateri bo hranil podatke. Namestitev poteka klasično (npm install, npm start).
+Priporočam, da preko /users/register dodate kakšnega uporabnika.
+
+Sledijo navodila, kako izdelati lastno aplikacijo. V primeru, ki je vključen, lahko primerjate datoteke, s temi, ki jih generiramo s pomočjo orodij, da boste videli, na katerih mestih se dopolnjuje koda. Vzorčna koda za angular (photo.zip) se najprej namesti z npm install in nato zažene z ng serve (nameščeno morate imeti cli ogrodje angular).
+
+Za izdelavo aplikacije najprej zaženemo ukaz:
+	npm install -g @angular/cli
+S tem namestimo podporo za angularCli
+
+Nato ustvarimo novo aplikacijo z 
+	ng new mojaAplikacija
+
+Aplikacijo lahko zaženemo z
+	ng serve --open
+Predlagam, da imate iz enega konzolnega okna aplikacijo zagnano, v drugem, novem pa zaganjate ukaze za generiranje
+
+V aplikacijo lahko dodamo svoje komponente.
+
+Novo komponento ustvarimo z:
+	ng generate component photos
+
+Nov servis za zajem podatkov iz strežnika pa z:
+	ng generate service photo
+V servis zapišemo kodo za komunikacijo s strežnikom ter ustvarimo še model photo.ts
+V app.module vklučimo podporo za HttpClientModule
+V komponento dodamo html kodo za prikaz slik in klic servisa, da pridobimo podatke.
+V app.component.html lahko nato uporabimo značko <app-photos></app-photos>, ki nam bo prikazala slike
+
+Izdelamo še router za navigacijo po aplikaciji
+	ng generate module app-routing --flat --module=app
+V router bomo dodajali poti do naših komponent, izpis komponent pa bo izveden v app.component.html v značko <router-outlet></router-outlet>
+
+Ustvarimo komponento za prikaz ene slike
+	ng generate component photo
+Dopolnimo naš photo.service tako, da lahko vrnemo še podatke o sliki na podlagi id-ja slike
+Izdelamo prikaz ene slike
+Dopolnimo photos.component.html tako, da klik na sliko prikaže posamezno sliko (lastnost routerLink).
+
+Ustvarimo komponento za prijavo uporabnika:
+	ng generate component userLogin
+Dopolnimo kodo z preslikovanjem kontrol na spremenljivke in klicem servisa
+
+Ustvarimo servis za prijavo
+	ng generate service userLogin
+Napišemo servis za prijavo na naš strežnik, pri čemer uporabljamo sejo za vzdrževanje prijave (withCredentials:true) na strežniški strani ter localstorage na strani odjemalca
+
+Ustvarimo zaščito za poti
+	ng generate guard login
+Pri čemer preverjamo v localStorage, če ima uporabnik tam podatke
+
+Ustvarimo komponento za dodajanje slik
+	ng generate component addPhoto
+Dopolnimo vmesnik in povezavo objekta, ki predstavlja datoteke
+Dopolnimo servis photo za dodajanje slike. Ker je za to potrebna prijava, uporabimo sejo na strežniški strani (withCredentials:true)
+
+V app-routing.module zaščitimo dodajanje slik
+
+Ko smo končali z razvojem, lahko aplikacijo pripravimo za produkcijo
+	ng build
+ali
+	ng build --prod
+V mapi .dist dobimo vse potrebne datoteke za našo aplikacijo, ki jo lahko potem strežemo preko poljubnega spletnega strežnika
+Lahko bi jo celo dali v public mapo v naši express aplikaciji
