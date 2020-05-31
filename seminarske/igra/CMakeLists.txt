@@ -28,7 +28,7 @@ add_executable(igra
         source/app/window.cpp
         source/app/utils.cpp
         source/main.cpp
-        source/gui/WorkerThread.cpp)
+        )
 
 target_include_directories(igra PUBLIC include ${CMAKE_BINARY_DIR})
 target_link_libraries(igra Qt5::Widgets Qt5::Sql)
