@@ -5,7 +5,8 @@
 #ifndef IGRA_GAME_H
 #define IGRA_GAME_H
 
-#include "../../include/domain/world.h"
+#include "domain/world.h"
+#include "app/events.h"
 #include <fstream>
 
 using namespace std;
