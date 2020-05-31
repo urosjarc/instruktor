@@ -9,6 +9,8 @@
 using namespace std;
 
 bool World::isDestroyed() {
+    if(this->iterationsRunning >= this->iterationsToLive) return true;
+
     float treesDest = 0;
 
     for (int i = 0; i < this->trees.size(); ++i) {
@@ -100,6 +102,7 @@ void World::checkWarriorCollisions() {
            if (hero->invincible == true && badGuys[i]->invincible == false) {
                badGuys.erase(badGuys.begin() + i);
                badGuysSize--;
+               hero->reputation++;
                cout << "bad guys" << i << " is dead" << endl;
                i--;
                continue;
@@ -113,6 +116,7 @@ void World::checkWarriorCollisions() {
            else {
                badGuys.erase(badGuys.begin() + i);
                badGuysSize--;
+               hero->reputation++;
                cout << "bad guys" << i << " is dead" << endl;
                i--;
                continue;
@@ -164,6 +168,7 @@ void World::checkFireCollisions() {
         float distance = sqrt(pow(it->x - hero->x, 2) + pow(it->y - hero->y, 2));
         if (it->radius > distance) {
             it->isAlive = false;
+            hero->reputation += it->radius;
             cout << "ogenj je pogasen" << endl;
             
         }
@@ -193,6 +198,7 @@ void World::checkFireCollisions() {
     }
 }
 void World::nextIteration() {
+    this->iterationsRunning++;
 
     for (int i = 0; i < this->badGuys.size(); ++i) {
         int dx = randomInt(-1, 1);
@@ -245,7 +251,7 @@ void World::nextIteration() {
     this->checkFireCollisions();
 }
 
-World::World(Hero *hero, int fireIndex, int badGuysIndex, int indiansIndex, int waterIndex, int width, int height, int secondsToLive) {
+World::World(Hero *hero, int fireIndex, int badGuysIndex, int indiansIndex, int waterIndex, int width, int height, int iterationsToLive) {
 
     this->hero = hero;
     this->fireIndex = fireIndex;
@@ -254,7 +260,7 @@ World::World(Hero *hero, int fireIndex, int badGuysIndex, int indiansIndex, int 
     this->waterIndex = waterIndex;
     this->width = width;
     this->height = height;
-    this->secondsToLive = secondsToLive;
+    this->iterationsToLive= iterationsToLive;
 
     for (int x = 0; x < this->width; ++x) {
         for (int y = 0; y < this->height; ++y) {
@@ -265,7 +271,5 @@ World::World(Hero *hero, int fireIndex, int badGuysIndex, int indiansIndex, int 
 }
 
 bool World::checkForNextLevel() {
-    if (badGuys.size() == 0 && fires.size() == 0 && hero->isAlive)
-        return true;
-    return false;
+    return badGuys.size() == 0 && fires.size() == 0 && hero->isAlive;
 }

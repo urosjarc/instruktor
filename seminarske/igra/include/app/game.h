@@ -12,10 +12,6 @@ using namespace std;
 
 class Game {
 public:
-   // fstream herosave();
-    //fstream forest();
-    //fstream badguys();
-   // fstream goodguys();
     Game(int level=1);
 
     int level;
@@ -26,6 +22,8 @@ public:
     virtual Event input();
     virtual void close();
     virtual void createWorld();
+    virtual void loadWorld();
+    virtual void deleteSave();
 };
 
 #endif //IGRA_GAME_H

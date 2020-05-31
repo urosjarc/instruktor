@@ -1,12 +1,11 @@
-#define SDL_MAIN_HANDLED
 #include <cmath>
 #include <iostream>
-//#include <SDL2/SDL.h>
+#include <SDL2/SDL.h>
 #include "../../include/app/colours.h"
 #include "../../include/app/events.h"
 #include "../../include/app/window.h"
 #include "../../include/app/simbols.h"
-/*
+
 void Window::close() {
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
@@ -50,6 +49,7 @@ void Window::draw() {
 
 
             bool isIndianTeam = false;
+            bool isIndian = false;
             for (int i = 0; i < this->world->indianTeams.size(); ++i) {
                 if (x == this->world->indianTeams[i]->x && y == this->world->indianTeams[i]->y) {
                     SDL_Rect r = SDL_Rect();
@@ -73,11 +73,12 @@ void Window::draw() {
                         r.y = (int) y*r.h;
                         SDL_SetRenderDrawColor( this->renderer,indian[0], indian[1], indian[2], 255 );
                         SDL_RenderFillRect( this->renderer, &r );
+                        isIndian = true;
                         break;
                     }
                 }
             }
-            if (isIndianTeam) continue;
+            if (isIndianTeam || isIndian) continue;
 
 
             bool isFire = false;
@@ -99,6 +100,21 @@ void Window::draw() {
                 }
             }
             if (isFire) continue;
+
+            for (Tree* it : this->world->trees) {
+                if (it->x == x && it->y == y) {
+                    if (!it->isAlive) {
+                        SDL_Rect r = SDL_Rect();
+                        r.w = (int) ((float) this->width) / this->world->width;
+                        r.h = (int) ((float) this->height) / this->world->height;
+                        r.x = (int) x*r.w;
+                        r.y = (int) y*r.h;
+                        SDL_SetRenderDrawColor( this->renderer,deadTree[0], deadTree[1], deadTree[2], 255 );
+                        SDL_RenderFillRect( this->renderer, &r );
+                    }
+                }
+
+            }
 
         }
     }
@@ -127,7 +143,7 @@ Event Window::input() {
                     case SDLK_DOWN:
                         this->world->hero->move(0, 1);
                         return Event::input;
-                    case SDLK_END:
+                    case SDLK_ESCAPE:
                         return Event::end;
                     default:
                         return Event::noInput;
@@ -147,4 +163,3 @@ Window::Window(int level) : Game(level) {
     this->window = SDL_CreateWindow( "The Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN );
     this->renderer =  SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
-*/

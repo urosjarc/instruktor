@@ -20,7 +20,7 @@ public:
         int waterIndex,
         int width,
         int height,
-        int secondsToLive);
+        int iterationsToLive);
 
     int fireIndex;
     int badGuysIndex;
@@ -28,7 +28,8 @@ public:
     int waterIndex;
     int width;
     int height;
-    int secondsToLive;
+    int iterationsToLive;
+    int iterationsRunning=0;
 
     Hero* hero;
     std::vector<IndianTeam*> indianTeams;

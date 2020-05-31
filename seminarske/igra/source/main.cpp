@@ -1,14 +1,13 @@
 #include <app/utils.h>
 #include <ctime>
 #include <cstdlib>
-//#include <SDL2/SDL.h>
 #include <app/events.h>
-//#include "app/window.h"
+#include "app/window.h"
 #include "app/terminal.h"
 
 int main(int argc, char* argv[]) {
     srand(mix(clock(), time(NULL), NULL));
-    auto game = new Terminal(1);
+    auto game = new Window(1);
 
     game->createWorld();
     game->draw();
@@ -21,6 +20,7 @@ int main(int argc, char* argv[]) {
             game->world->nextIteration();
             if (game->world->checkForNextLevel()) {
                 game->level++;
+                game->deleteSave();
                 game->createWorld();   
             }
 
@@ -28,8 +28,11 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    game->saveWorld();
-    game->close();
+    if(input==Event::end) game->saveWorld();
+    else {
+        game->deleteSave();
+        game->close();
+    }
 
     return 0;
 }

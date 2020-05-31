@@ -59,7 +59,7 @@ void Terminal::draw() {
                 float dy = this->world->fires[i]->y - y;
                 float dist = pow(pow(dx, 2) + pow(dy, 2), 0.5); // (dx^2 + dy^2)^(1/2)
 
-                if (dist < this->world->fires[i]->radius && this->world->fires[i]->isAlive == true) {
+                if (dist < this->world->fires[i]->radius) {
                     std::cout << (char) fire;
                     isFire = true;
                     break;
