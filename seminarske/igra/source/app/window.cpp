@@ -1,12 +1,12 @@
-
+#define SDL_MAIN_HANDLED
 #include <cmath>
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <app/colours.h>
-#include <app/events.h>
-#include "app/window.h"
-#include "app/simbols.h"
-
+//#include <SDL2/SDL.h>
+#include "../../include/app/colours.h"
+#include "../../include/app/events.h"
+#include "../../include/app/window.h"
+#include "../../include/app/simbols.h"
+/*
 void Window::close() {
     SDL_DestroyRenderer(this->renderer);
     SDL_DestroyWindow(this->window);
@@ -32,9 +32,6 @@ void Window::draw() {
                 continue;
             }
 
-            /**
-             * Draw badguys
-             */
             bool isBadGuy = false;
             for (int i = 0; i < this->world->badGuys.size(); ++i) {
                 if (x == this->world->badGuys[i]->x && y == this->world->badGuys[i]->y) {
@@ -51,9 +48,7 @@ void Window::draw() {
             }
             if (isBadGuy) continue;
 
-            /**
-             * Draw indian teams & indians
-             */
+
             bool isIndianTeam = false;
             for (int i = 0; i < this->world->indianTeams.size(); ++i) {
                 if (x == this->world->indianTeams[i]->x && y == this->world->indianTeams[i]->y) {
@@ -84,9 +79,7 @@ void Window::draw() {
             }
             if (isIndianTeam) continue;
 
-            /**
-             * Draw fire
-             */
+
             bool isFire = false;
             for (int i = 0; i < this->world->fires.size(); ++i) {
                 float dx = this->world->fires[i]->x - x;
@@ -118,9 +111,9 @@ Event Window::input() {
     SDL_Event event = SDL_Event();
     while( SDL_PollEvent( &event ) ){
         switch( event.type ){
-            /* Look for a keypress */
+            // Look for a keypress 
             case SDL_KEYDOWN:
-                /* Check the SDLKey values and move change the coords */
+                // Check the SDLKey values and move change the coords 
                 switch( event.key.keysym.sym ){
                     case SDLK_LEFT:
                         this->world->hero->move(-1, 0);
@@ -154,3 +147,4 @@ Window::Window(int level) : Game(level) {
     this->window = SDL_CreateWindow( "The Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN );
     this->renderer =  SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 }
+*/

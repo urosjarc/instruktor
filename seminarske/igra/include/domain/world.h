@@ -4,7 +4,7 @@
 
 #ifndef IGRA_WORLD_H
 #define IGRA_WORLD_H
-
+#include <fstream>
 #include <vector>
 #include "hero.h"
 #include "fire.h"
@@ -40,6 +40,7 @@ public:
     void checkWarriorCollisions();
     void checkFireCollisions();
     void nextIteration();
+    bool checkForNextLevel();
 };
 
 #endif //IGRA_WORLD_H

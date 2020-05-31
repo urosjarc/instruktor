@@ -9,9 +9,9 @@ class Fire {
 public:
     Fire(int x, int y);
 
-    bool isAlive = true;
     int x;
     int y;
+    bool isAlive = true;
     float radius = 0;
 };
 

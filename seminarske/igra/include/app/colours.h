@@ -5,8 +5,6 @@
 #ifndef IGRA_SIMBOLS_H
 #define IGRA_SIMBOLS_H
 
-#include <SDL2/SDL.h>
-
 static const int hero[]       = {0,0,255};
 static const int badGuy[]     = {255,0,0};
 static const int tree[]       = {0,255,0};

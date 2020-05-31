@@ -11,9 +11,10 @@ void Warrior::move() {
 
 }
 
-Warrior::Warrior(int x, int y, int invincibleRadius) {
+Warrior::Warrior(int x, int y, int invincibleRadius, int killRadius) {
     this->x = x;
     this->y = y;
     this->invincibleRadius = invincibleRadius;
+    this->killRadius = killRadius;
 }
 

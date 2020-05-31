@@ -6,14 +6,14 @@
 #define IGRA_WINDOW_H
 
 #include "game.h"
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
 
 class Window: public Game {
 public:
     Window(int level);
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
+    //SDL_Window* window;
+    //SDL_Renderer* renderer;
 
     int width = 600;
     int height = 400;

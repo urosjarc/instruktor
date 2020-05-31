@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include <cmath>
-#include <app/events.h>
+#include "app/events.h"
 
 #include "app/terminal.h"
 #include "app/simbols.h"
@@ -9,7 +9,6 @@
 void Terminal::draw() {
     for (int y = 0; y < this->world->height; ++y) {
         for (int x = 0; x < this->world->width; ++x) {
-
             if (x == this->world->hero->x && y == this->world->hero->y) {
                 std::cout << (char) hero;
                 continue;
@@ -31,23 +30,25 @@ void Terminal::draw() {
             /**
              * Draw indian teams & indians
              */
-            bool isIndianTeam = false;
+            bool isIndianTeam = false, isIndian = false;
             for (int i = 0; i < this->world->indianTeams.size(); ++i) {
                 if (x == this->world->indianTeams[i]->x && y == this->world->indianTeams[i]->y) {
                     std::cout << (char) indianTeam;
                     isIndianTeam = true;
                     break;
                 }
-
+                
                 for (int j = 0; j < this->world->indianTeams[i]->indians.size(); ++j) {
                     auto pIndian = this->world->indianTeams[i]->indians[j];
                     if(pIndian->x == x && pIndian->y == y) {
                         std::cout << (char) indian;
+                        isIndian = true;
                         break;
                     }
                 }
             }
-            if (isIndianTeam) continue;
+            if (isIndianTeam || isIndian) continue;
+          
 
             /**
              * Draw fire
@@ -58,7 +59,7 @@ void Terminal::draw() {
                 float dy = this->world->fires[i]->y - y;
                 float dist = pow(pow(dx, 2) + pow(dy, 2), 0.5); // (dx^2 + dy^2)^(1/2)
 
-                if (dist < this->world->fires[i]->radius) {
+                if (dist < this->world->fires[i]->radius && this->world->fires[i]->isAlive == true) {
                     std::cout << (char) fire;
                     isFire = true;
                     break;
@@ -66,11 +67,15 @@ void Terminal::draw() {
             }
             if (isFire) continue;
 
-            for(Tree* t: this->world->trees){
-                if(t->x == x && t->y == y){
-                    if(t->isAlive) std::cout << (char) tree;
-                    else std::cout << (char) deadTree;
+            for (Tree* it : this->world->trees) {
+                if (it->x == x && it->y == y) {
+                     if (it->isAlive) {
+                        std::cout << (char)tree;
+                      }
+                      else
+                          std::cout << (char)deadTree;
                 }
+             
             }
         }
         std::cout << '\n';

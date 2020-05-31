@@ -7,8 +7,9 @@
 
 class Warrior {
 public:
-    Warrior(int x, int y, int invincibleRadius = 4);
+    Warrior(int x, int y, int invincibleRadius = 4, int killRadius=3); 
     int invincibleRadius;
+    int killRadius;
     bool invincible = false;
     int y;
     int x;

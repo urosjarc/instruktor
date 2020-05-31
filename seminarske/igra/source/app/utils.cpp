@@ -1,6 +1,5 @@
 #include <ctime>
 #include <cstdlib>
-#include <zconf.h>
 
 unsigned long mix(unsigned long a, unsigned long b, unsigned long c)
 {
@@ -17,7 +16,6 @@ unsigned long mix(unsigned long a, unsigned long b, unsigned long c)
 }
 
 int randomInt(int min, int max){
-    srand(mix(clock(), time(NULL), getpid()));
     return min + std::rand() % (max - min + 1);
 }
 

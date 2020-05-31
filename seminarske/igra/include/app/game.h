@@ -5,10 +5,17 @@
 #ifndef IGRA_GAME_H
 #define IGRA_GAME_H
 
-#include "domain/world.h"
+#include "../../include/domain/world.h"
+#include <fstream>
+
+using namespace std;
 
 class Game {
 public:
+   // fstream herosave();
+    //fstream forest();
+    //fstream badguys();
+   // fstream goodguys();
     Game(int level=1);
 
     int level;
