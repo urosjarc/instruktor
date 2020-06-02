@@ -1,6 +1,8 @@
 #include <cmath>
 #include <SDL2/SDL.h>
 #include <iostream>
+#include <algorithm>
+#include <QtCore/qlogging.h>
 #include "app/colours.h"
 #include "app/events.h"
 #include "app/window.h"
@@ -19,6 +21,9 @@ void Window::init() {
 }
 
 void Window::replay() {
+    auto score = new Score( world->hero->name,world->hero->reputation);
+    scores.push_back(score);
+    sortScores();
     for (auto p: this->world->hero->history) {
         SDL_SetRenderDrawColor(this->renderer, tree[0], tree[1], tree[2], 255);
         SDL_RenderClear(this->renderer);
@@ -41,7 +46,7 @@ void Window::replay() {
         }
 
         SDL_RenderPresent(this->renderer);
-        SDL_Delay(200);
+        SDL_Delay(100);
     }
 }
 
@@ -66,6 +71,7 @@ void Window::saveWorld() {
       << " " << world->hero->y
       << " " << (int) world->hero->invincible
       << " " << world->hero->invincibleRadius
+      << " " << world->hero->name
       << " " << world->hero->killRadius;
     f.close();
 
@@ -77,6 +83,7 @@ void Window::saveWorld() {
           << it->x << "\n";
     }
     f.close();
+
 
     /**
      *
@@ -175,19 +182,21 @@ void Window::loadWorld() {
     int x;
     int y;
     int invincibleRadius;
+    char name[10];
     int isAlive;
     int reputation;
     int invincible;
     int killRadius;
 
     f.open("hero.txt");
-    f >> isAlive >> reputation >> x >> y >> invincible >> invincibleRadius >> killRadius;
+    f >> isAlive >> reputation >> x >> y >> invincible >> invincibleRadius >> name >> killRadius;
 
     auto hero = new Hero(x, y, invincibleRadius);
     hero->isAlive = (bool) isAlive;
     hero->reputation = reputation;
     hero->invincible = (bool) invincible;
     hero->killRadius = killRadius;
+    hero->name = name;
     f.close();
 
     /**
@@ -195,8 +204,7 @@ void Window::loadWorld() {
      */
 
     f.open("replay.txt");
-    for (auto it: this->world->hero->history) {
-        f >> y >> x;
+    while(f >> y >> x) {
         auto p = new Point(x, y);
         hero->history.push_back(p);
     }
@@ -480,5 +488,35 @@ Event Window::input() {
     }
 
     return Event::noInput;
+}
+
+void Window::sortScores() {
+    std::sort(scores.begin(), scores.end(), [](Score* lhs, Score* rhs) {
+        return lhs->score > rhs->score;
+    });
+}
+void Window::writeScores(){
+    std::ofstream f;
+    f.open("scores.txt");
+    for (auto it: scores) {
+        f << it->score << " "
+          << it->name << " "
+          << it->date << "\n";
+    }
+    f.close();
+
+}
+void Window::loadScores() {
+    std::ifstream f;
+    int score;
+    std::string name;
+    std::string date;
+    f.open("scores.txt");
+    while(f >> score >> name >> date) {
+        auto s = new Score(name, score, date);
+        scores.push_back(s);
+    }
+    sortScores();
+    f.close();
 }
 

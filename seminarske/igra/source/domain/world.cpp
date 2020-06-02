@@ -9,16 +9,13 @@
 using namespace std;
 
 bool World::isDestroyed() {
-    if(!this->hero->isAlive) return true;
-    if(this->iterationsRunning >= this->iterationsToLive) return true;
-
     float treesDest = 0;
 
     for (int i = 0; i < this->trees.size(); ++i) {
         if(!this->trees[i]->isAlive) treesDest++;
     }
 
-    return treesDest/this->trees.size() > 0.75;
+    return !this->hero->isAlive || this->iterationsRunning >= this->iterationsToLive || treesDest/this->trees.size() > 0.75;
 }
 void World::checkWarriorCollisions() {
     /**

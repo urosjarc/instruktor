@@ -22,11 +22,14 @@
       </item>
       <item>
        <widget class="QLineEdit" name="uporabnikLE">
+        <property name="text">
+         <string>Neznanec</string>
+        </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
         <property name="placeholderText">
-         <string>Uporabniski ime</string>
+         <string/>
         </property>
        </widget>
       </item>

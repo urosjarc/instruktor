@@ -21,11 +21,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     connect(ui.closePB, &QPushButton::clicked, this, &MainWindow::closeGame);
     connect(ui.newGamePB, &QPushButton::clicked, this, &MainWindow::newGame);
     connect(ui.loadPB, &QPushButton::clicked, this, &MainWindow::loadGame);
+
+    window->loadScores();
+    ui.scoreTE->clear();
+    std::string line;
+    for(auto s: window->scores){
+        line.append(std::to_string(s->score));
+        line.append("\t");
+        line.append(s->name);
+        line.append("\t");
+        line.append(s->date);
+        line.append("\n");
+    }
+    ui.scoreTE->setPlainText(QString::fromStdString(line));
+
     show();
 
 }
 
 void MainWindow::closeGame() {
+    window->writeScores();
     window->saveWorld();
     window->close();
     QCoreApplication::processEvents();
@@ -34,6 +49,7 @@ void MainWindow::closeGame() {
 void MainWindow::loadGame() {
     window->init();
     window->createWorld();
+    window->world->hero->name = ui.uporabnikLE->text().toStdString();
     window->draw();
 
     Event input = Event::noInput;
@@ -56,10 +72,12 @@ void MainWindow::loadGame() {
 
     window->deleteSave();
     window->close();
+    closeGame();
 }
 
 void MainWindow::newGame() {
     window->deleteSave();
+    window->level = 1;
     loadGame();
 }
 

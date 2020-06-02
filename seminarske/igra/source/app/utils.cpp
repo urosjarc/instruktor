@@ -1,7 +1,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <include/app/utils.h>
-
+#include <iostream>
 
 unsigned long mix(unsigned long a, unsigned long b, unsigned long c) {
     a = a - b;
@@ -36,6 +36,16 @@ unsigned long mix(unsigned long a, unsigned long b, unsigned long c) {
 
 int randomInt(int min, int max) {
     return min + std::rand() % (max - min + 1);
+}
+
+std::string currentDateTime() {
+    time_t     now = time(nullptr);
+    struct tm  tstruct{};
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
 }
 
 Point::Point(int x, int y) {

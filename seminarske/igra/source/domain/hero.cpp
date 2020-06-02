@@ -5,6 +5,7 @@
 
 #include "domain/hero.h"
 #include <iostream>
+#include <utility>
 
 void Hero::move(int dx, int dy) {
     this->y += dy;
@@ -17,7 +18,7 @@ Tree *Hero::plantTree(int x, int y) {
     return &tree;
 }
 
-Hero::Hero(int x, int y, int invincibleRadius) : Warrior(x, y, invincibleRadius) {
+Hero::Hero(int x, int y, int invincibleRadius)  : Warrior(x, y, invincibleRadius) {
     this->x = x;
     this->y = y;
     auto p = new Point(x, y);

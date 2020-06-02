@@ -9,16 +9,17 @@
 #include "tree.h"
 #include "warrior.h"
 #include "app/utils.h"
+#include "iostream"
 
 class Hero : public Warrior {
 public:
     Hero(int x, int y, int invincibleRadius = 4);
 
     bool isAlive = true;
-    char name[10]{};
+    std::string name = "Neznanec";
     int reputation = 0;
 
-    std::vector<Point*> history{};
+    std::vector<Point *> history{};
 
     Tree *plantTree(int x, int y);
 
