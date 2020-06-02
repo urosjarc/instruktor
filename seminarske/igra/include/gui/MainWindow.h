@@ -4,18 +4,16 @@
 #include <QMainWindow>
 #include <QApplication>
 #include <QThread>
-#include "app/game.h"
+#include "app/window.h"
 #include "gui/ui_MainWindow.h"
 #include "gui/MainWindow.h"
 
 class MainWindow: public QMainWindow {
 
 public:
-    Game* game;
+    Window* window;
     MainWindow(QWidget* parent = nullptr);
-    void play();
-    void replay();
-    void close();
+    void closeGame();
     void newGame();
     void loadGame();
 private:

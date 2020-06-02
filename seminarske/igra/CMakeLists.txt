@@ -25,8 +25,6 @@ add_executable(igra
         source/domain/tree.cpp
         source/domain/warrior.cpp
         source/domain/world.cpp
-        source/app/game.cpp
-        source/app/terminal.cpp
         source/app/window.cpp
         source/app/utils.cpp
         source/main.cpp

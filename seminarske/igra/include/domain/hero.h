@@ -8,15 +8,20 @@
 #include "indian_team.h"
 #include "tree.h"
 #include "warrior.h"
+#include "app/utils.h"
 
-class Hero: public Warrior {
+class Hero : public Warrior {
 public:
     Hero(int x, int y, int invincibleRadius = 4);
+
     bool isAlive = true;
-    char name[10];
+    char name[10]{};
     int reputation = 0;
 
-    Tree* plantTree(int x, int y);
+    std::vector<Point*> history{};
+
+    Tree *plantTree(int x, int y);
+
     void move(int dx, int dy);
 };
 

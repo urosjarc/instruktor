@@ -31,13 +31,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="replayPB">
-        <property name="text">
-         <string>Replay</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="closePB">
         <property name="text">
          <string>Close</string>

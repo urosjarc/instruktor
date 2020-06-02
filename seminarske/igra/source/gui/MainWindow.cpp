@@ -14,53 +14,52 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     ui.setupUi(this);
 
+    window = new Window();
+
     srand(mix(clock(), time(NULL), NULL));
 
-    connect(ui.closePB, &QPushButton::clicked, this, &MainWindow::close);
+    connect(ui.closePB, &QPushButton::clicked, this, &MainWindow::closeGame);
     connect(ui.newGamePB, &QPushButton::clicked, this, &MainWindow::newGame);
     connect(ui.loadPB, &QPushButton::clicked, this, &MainWindow::loadGame);
-    connect(ui.replayPB, &QPushButton::clicked, this, &MainWindow::replay);
     show();
 
 }
 
-void MainWindow::close() {
-    game->close();
-    game->saveWorld();
-}
-
-void MainWindow::replay() {
-    qDebug() << "replay";
+void MainWindow::closeGame() {
+    window->saveWorld();
+    window->close();
+    QCoreApplication::processEvents();
 }
 
 void MainWindow::loadGame() {
-    game = new Window(1);
-    game->createWorld();
-    game->draw();
+    window->init();
+    window->createWorld();
+    window->draw();
 
     Event input = Event::noInput;
 
-    while (!game->world->isDestroyed()) {
+    while (!window->world->isDestroyed()) {
         QCoreApplication::processEvents();
-        input = game->input();
+        input = window->input();
         if (input == Event::input) {
-            game->world->nextIteration();
-            if (game->world->checkForNextLevel()) {
-                game->level++;
-                game->deleteSave();
-                game->createWorld();
+            window->world->nextIteration();
+            if (window->world->checkForNextLevel()) {
+                window->level++;
+                window->deleteSave();
+                window->replay();
+                window->createWorld();
             }
 
-            game->draw();
+            window->draw();
         }
     }
 
-    game->deleteSave();
-    game->close();
+    window->deleteSave();
+    window->close();
 }
 
 void MainWindow::newGame() {
-    game->deleteSave();
+    window->deleteSave();
     loadGame();
 }
 

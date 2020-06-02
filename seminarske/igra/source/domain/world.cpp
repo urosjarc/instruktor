@@ -9,6 +9,7 @@
 using namespace std;
 
 bool World::isDestroyed() {
+    if(!this->hero->isAlive) return true;
     if(this->iterationsRunning >= this->iterationsToLive) return true;
 
     float treesDest = 0;
@@ -247,6 +248,10 @@ void World::nextIteration() {
         hero->y = 0;
     if (hero->y >= this->height)
         hero->y = this->height - 1;
+
+    auto p = new Point(hero->x, hero->y);
+    hero->history.push_back(p);
+
     this->checkWarriorCollisions();
     this->checkFireCollisions();
 }

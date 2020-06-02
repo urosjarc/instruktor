@@ -6,12 +6,12 @@
 #include "domain/hero.h"
 #include <iostream>
 
-
 void Hero::move(int dx, int dy) {
     this->y += dy;
     this->x += dx;
 }
-Tree* Hero::plantTree(int x, int y) {
+
+Tree *Hero::plantTree(int x, int y) {
     std::cout << this << " plantTree\n";
     static auto tree = Tree(x, y);
     return &tree;
@@ -20,6 +20,8 @@ Tree* Hero::plantTree(int x, int y) {
 Hero::Hero(int x, int y, int invincibleRadius) : Warrior(x, y, invincibleRadius) {
     this->x = x;
     this->y = y;
+    auto p = new Point(x, y);
+    this->history.push_back(p);
 }
 
 
