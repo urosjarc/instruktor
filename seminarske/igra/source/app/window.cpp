@@ -361,7 +361,7 @@ void Window::draw() {
                 SDL_Rect r = SDL_Rect();
                 r.w = (int) ((float) this->width) / this->world->width;
                 r.h = (int) ((float) this->height) / this->world->height;
-                r.x = (int) x * r.w;
+                r.x = (int) x * r.w; //pixels
                 r.y = (int) y * r.h;
                 SDL_SetRenderDrawColor(this->renderer, hero[0], hero[1], hero[2], 255);
                 SDL_RenderFillRect(this->renderer, &r);
@@ -459,7 +459,9 @@ void Window::draw() {
 }
 
 Event Window::input() {
-
+    /**
+     * https://www.libsdl.org/release/SDL-1.2.15/docs/html/guideinputkeyboard.html
+     */
     SDL_Event event = SDL_Event();
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -479,8 +481,6 @@ Event Window::input() {
                     case SDLK_DOWN:
                         this->world->hero->move(0, 1);
                         return Event::input;
-                    case SDLK_ESCAPE:
-                        return Event::end;
                     default:
                         return Event::noInput;
                 }
@@ -491,6 +491,7 @@ Event Window::input() {
 }
 
 void Window::sortScores() {
+    //https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
     std::sort(scores.begin(), scores.end(), [](Score* lhs, Score* rhs) {
         return lhs->score > rhs->score;
     });

@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     srand(mix(clock(), time(NULL), NULL));
 
+    //https://stackoverflow.com/questions/35400767/connecting-a-button-in-qt
     connect(ui.closePB, &QPushButton::clicked, this, &MainWindow::closeGame);
     connect(ui.newGamePB, &QPushButton::clicked, this, &MainWindow::newGame);
     connect(ui.loadPB, &QPushButton::clicked, this, &MainWindow::loadGame);

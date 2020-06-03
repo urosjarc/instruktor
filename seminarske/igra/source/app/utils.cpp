@@ -39,6 +39,7 @@ int randomInt(int min, int max) {
 }
 
 std::string currentDateTime() {
+    //https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
     time_t     now = time(nullptr);
     struct tm  tstruct{};
     char       buf[80];
@@ -49,7 +50,6 @@ std::string currentDateTime() {
 }
 
 Point::Point(int x, int y) {
-
     this->x = x;
     this->y = y;
 }
