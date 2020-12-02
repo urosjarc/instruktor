@@ -160,7 +160,7 @@ class Sestavi(object):
         print()
 
 
-# Example from https://en.wikipedia.org/wiki/Analytic_hierarchy_process_%E2%80%93_leader_example
+# https://en.wikipedia.org/wiki/Analytic_hierarchy_process_%E2%80%93_leader_example
 izskusenost = np.array([[1, .25, 4], [4, 1, 9], [.25, 1 / 9., 1]])
 solanje = np.array([[1, 3, .2], [1 / 3., 1, 1 / 7.], [5, 7, 1]])
 karizma = np.array([[1, 5, 9], [.2, 1, 4], [1 / 9., .25, 1]])
