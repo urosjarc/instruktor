@@ -4,7 +4,7 @@ import os
 import numpy as np
 from PyQt5.QtWidgets import QMessageBox
 
-from main import Primerjaj, Sestavi
+from AHP import Primerjaj, Sestavi
 
 
 class GUI(QtWidgets.QMainWindow):
@@ -14,7 +14,7 @@ class GUI(QtWidgets.QMainWindow):
 
     def __init(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        uic.loadUi(dir_path + '/main.ui', self)
+        uic.loadUi(dir_path + '/gui.ui', self)
 
         self.dodajAlternativoPB.clicked.connect(self.dodajAlternativo)
         self.dodajParameterPB.clicked.connect(self.dodajParameter)
