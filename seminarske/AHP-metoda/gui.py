@@ -2,6 +2,8 @@ from PyQt5 import QtWidgets, uic, QtGui, Qt, QtCore
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os
 import numpy as np
+from PyQt5.QtWidgets import QMessageBox
+
 from main import Primerjaj, Sestavi
 
 
@@ -103,11 +105,16 @@ class GUI(QtWidgets.QMainWindow):
         otroci = slovar_primerjav.values()
 
         # Sestavi koncno porocilo
-        for l in matrika_kriterij:
-            print(l)
+        stars = Primerjaj('Izbor', np.array(matrika_kriterij), self.parametri, 3)
+        porocilo = Sestavi('Izbor', stars, otroci).porocilo()
 
-        stars = Primerjaj('Izbor', np.array(matrika_kriterij), self.alternative, 3)
-        Sestavi('Izbor', stars, otroci).porocilo()
+        # Prikazi koncno porocilo v msg-boxu
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setWindowTitle("Porocilo AHP metode")
+        msg.setText(porocilo)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec_()
 
     def reset(self):
         self.alternative = []

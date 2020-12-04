@@ -153,30 +153,32 @@ class Sestavi(object):
         self.utezi = {self.ime: izracunane_utezi}
 
     def porocilo(self):
+        porocilo = f"{self.ime}:\n"
         print(self.ime + ":")
         sortirane_utezi = sorted(self.utezi[self.stars.ime].items(), key=operator.itemgetter(1), reverse=True)
         for k, v in sortirane_utezi:
-            print('- {}: {}'.format(k, np.round(v, self.natancnost)))
-        print()
+            porocilo += f'- {k}: {np.round(v, self.natancnost)}\n'
+        return porocilo
 
 
-# https://en.wikipedia.org/wiki/Analytic_hierarchy_process_%E2%80%93_leader_example
-izskusenost = np.array([[1, .25, 4], [4, 1, 9], [.25, 1 / 9., 1]])
-solanje = np.array([[1, 3, .2], [1 / 3., 1, 1 / 7.], [5, 7, 1]])
-karizma = np.array([[1, 5, 9], [.2, 1, 4], [1 / 9., .25, 1]])
-_starost = np.array([[1, 1 / 3., 5], [3, 1, 9], [.2, 1 / 9., 1]])
-kriterij = np.array([[1, 4, 3, 7], [.25, 1, 1 / 3., 3], [1 / 3., 3, 1, 5], [1 / 7., 1 / 3., .2, 1]])
+if __name__ == '__main__':
+    # https://en.wikipedia.org/wiki/Analytic_hierarchy_process_%E2%80%93_leader_example
+    izskusenost = np.array([[1, .25, 4], [4, 1, 9], [.25, 1 / 9., 1]])
+    solanje = np.array([[1, 3, .2], [1 / 3., 1, 1 / 7.], [5, 7, 1]])
+    karizma = np.array([[1, 5, 9], [.2, 1, 4], [1 / 9., .25, 1]])
+    _starost = np.array([[1, 1 / 3., 5], [3, 1, 9], [.2, 1 / 9., 1]])
+    kriterij = np.array([[1, 4, 3, 7], [.25, 1, 1 / 3., 3], [1 / 3., 3, 1, 5], [1 / 7., 1 / 3., .2, 1]])
 
-alternative = ['Tom', 'Dick', 'Harry']
+    alternative = ['Tom', 'Dick', 'Harry']
 
-_izskusenost = Primerjaj('izskusenost', izskusenost, alternative, 3)
-_solanje = Primerjaj('solanje', solanje, alternative, 3)
-_karizma = Primerjaj('karizma', karizma, alternative, 3)
-_starost = Primerjaj('starost', _starost, alternative, 3)
+    _izskusenost = Primerjaj('izskusenost', izskusenost, alternative, 3)
+    _solanje = Primerjaj('solanje', solanje, alternative, 3)
+    _karizma = Primerjaj('karizma', karizma, alternative, 3)
+    _starost = Primerjaj('starost', _starost, alternative, 3)
 
-otroci = [_izskusenost, _solanje, _karizma, _starost]
+    otroci = [_izskusenost, _solanje, _karizma, _starost]
 
-alt2 = ['izskusenost', 'solanje', 'karizma', 'starost']
+    alt2 = ['izskusenost', 'solanje', 'karizma', 'starost']
 
-stars = Primerjaj('Kandidat', kriterij, alt2, 3)
-Sestavi('Kandidat', stars, otroci).porocilo()
+    stars = Primerjaj('Kandidat', kriterij, alt2, 3)
+    Sestavi('Kandidat', stars, otroci).porocilo()
