@@ -28,7 +28,7 @@ def main(path=None, SearcherClass=None, iterate=False, log=False):
         if iterate:
             input("Press enter to continue... ")
 
-    iskalec.report()
+    iskalec.porocilo()
 
 if __name__ == '__main__':
     for i in range(1,16):

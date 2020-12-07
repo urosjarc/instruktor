@@ -1,5 +1,36 @@
 import operator
 import numpy as np
+from typing import List
+
+class Node(object):
+    def __init__(self, name, matrix):
+        self.name = name
+        self.matrix = matrix
+        self.child:List[Node]  = []
+        self.parent = None
+        self.primerjava = None
+        self.porocilo = None
+
+    def sestavi_primerjave(self, alternative):
+        if len(self.child) > 0:
+            self.primerjava = Primerjaj(self.name, np.array(self.matrix), [child.name for child in self.child])
+            for child in self.child:
+                child.sestavi_primerjave(alternative)
+        else:
+            self.primerjava = Primerjaj(self.name, self.matrix, alternative)
+
+    def sestavi_porocila(self):
+        if len(self.child) > 0:
+            for child in self.child:
+                if len(child.child) > 0:
+                    child.sestavi_porocila()
+            data = []
+            for child in self.child:
+                if len(child.child) > 0:
+                    data.append(self.porocilo)
+                else:
+                    data.append(self.primerjava)
+            self.porocilo = Sestavi(self.name, self.primerjava, data)
 
 
 class Primerjaj(object):
@@ -54,6 +85,7 @@ class Primerjaj(object):
         vsota_vrstic = np.sum(kvadratna_matrika, 1)
         skupna_vsota_vrstic = np.sum(vsota_vrstic)
         glavni_bazni_vektor = np.divide(vsota_vrstic, skupna_vsota_vrstic).round(self.natancnost)
+        print(glavni_bazni_vektor)
         # Ustvari prazno matriko kot primerjalni bazni vektor ce je to prva iteracija
         if primerjalni_bazni_vektor is None:
             primerjalni_bazni_vektor = np.zeros(self.dimenzija_matrike)
@@ -160,25 +192,47 @@ class Sestavi(object):
             porocilo += f'- {k}: {np.round(v, self.natancnost)}\n'
         return porocilo
 
+if __name__ == "__main__":
+    experience = np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
+    education = np.array([[1, 3, .2], [1/3., 1, 1/7.], [5, 7, 1]])
+    charisma = np.array([[1, 5, 9], [.2, 1, 4], [1/9., .25, 1]])
+    age = np.array([[1, 1/3., 5], [3, 1, 9], [.2, 1/9., 1]])
+    criteria = np.array([[1, 4, 3, 7], [.25, 1, 1/3., 3], [1/3., 3, 1, 5], [1/7., 1/3., .2, 1]])
+    exp1= np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
+    exp2 = np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
 
-if __name__ == '__main__':
-    # https://en.wikipedia.org/wiki/Analytic_hierarchy_process_%E2%80%93_leader_example
-    izskusenost = np.array([[1, .25, 4], [4, 1, 9], [.25, 1 / 9., 1]])
-    solanje = np.array([[1, 3, .2], [1 / 3., 1, 1 / 7.], [5, 7, 1]])
-    karizma = np.array([[1, 5, 9], [.2, 1, 4], [1 / 9., .25, 1]])
-    _starost = np.array([[1, 1 / 3., 5], [3, 1, 9], [.2, 1 / 9., 1]])
-    kriterij = np.array([[1, 4, 3, 7], [.25, 1, 1 / 3., 3], [1 / 3., 3, 1, 5], [1 / 7., 1 / 3., .2, 1]])
+    alt2 = []
+    alt1 = ['Tom', 'Dick', 'Harry']
 
-    alternative = ['Tom', 'Dick', 'Harry']
+    cri = Primerjaj('goal', criteria, ('exp', 'age'))
+    exp = Primerjaj('exp', experience, ('edu', 'sha'))
+    edu = Primerjaj('edu', education, alt1)
+    cha = Primerjaj('cha', charisma, alt1)
+    age = Primerjaj('age', age, alt1)
 
-    _izskusenost = Primerjaj('izskusenost', izskusenost, alternative, 3)
-    _solanje = Primerjaj('solanje', solanje, alternative, 3)
-    _karizma = Primerjaj('karizma', karizma, alternative, 3)
-    _starost = Primerjaj('starost', _starost, alternative, 3)
+    exp = Sestavi('exp', exp, ())
 
-    otroci = [_izskusenost, _solanje, _karizma, _starost]
+    exp = Sestavi('exp', exp, [exp1, exp2])
+    Sestavi('goal', cri, [exp, edu, cha, age]).report()
+'''
+<g> ========================
+		a1	a2	a3
+p1:		5,	7,	8,
+p2:		5,	7,	8,
+p3:		5,	7,	8,
 
-    alt2 = ['izskusenost', 'solanje', 'karizma', 'starost']
+<p1> ========================
+		a1	a2	a3
+p11:		5,	7,	8,
+p22:		5,	7,	8,
+p33:		5,	7,	8,
 
-    stars = Primerjaj('Kandidat', kriterij, alt2, 3)
-    Sestavi('Kandidat', stars, otroci).porocilo()
+<g> ========================
+		p1	p2	p3
+Values:		5,	7,	8,
+
+<p1> ========================
+		p11	p22	p33
+Values:		5,	7,	8,
+
+'''

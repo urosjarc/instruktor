@@ -43,3 +43,8 @@
  * Pretvoris domenski prostor (korenski objekt)
  * Datoteko z vsebovanimi informacijami shranis na disk
  
+ ## Linux installation
+ 
+'''
+
+''' 

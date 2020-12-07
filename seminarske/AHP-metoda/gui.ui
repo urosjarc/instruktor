@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>451</height>
+    <width>1103</width>
+    <height>756</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,15 +20,15 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Ime alternative:</string>
+         <string>Ime alternativ:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="alternativaLE"/>
+       <widget class="QLineEdit" name="imeAlternativLE"/>
       </item>
       <item>
-       <widget class="QPushButton" name="dodajAlternativoPB">
+       <widget class="QPushButton" name="dodajPB">
         <property name="text">
          <string>Dodaj</string>
         </property>
@@ -41,19 +41,22 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Ime parametra:</string>
+         <string>Ime primerjave:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="parameterLE"/>
+       <widget class="QLineEdit" name="imePrimerjaveLE"/>
       </item>
       <item>
-       <widget class="QPushButton" name="dodajParameterPB">
+       <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Dodaj</string>
+         <string>Parametri:</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="parametriLE"/>
       </item>
      </layout>
     </item>
@@ -74,7 +77,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>50</height>
+          <height>16777215</height>
          </size>
         </property>
        </widget>

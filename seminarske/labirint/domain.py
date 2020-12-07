@@ -76,7 +76,7 @@ class Labirint:
         if not log:
             return
 
-        self.searcher.report()
+        self.searcher.porocilo()
         for l in self.node_map:
             for n in l:
                 char = " "
