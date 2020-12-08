@@ -160,9 +160,9 @@ class GUI(QtWidgets.QMainWindow):
             slovar_matrik_utezi[param] = np.array(matrika)
 
         matrika_kriterijev = []
-        for y in range(len(self.alternative)):
+        for y in range(len(primerjava['parametri'])):
             vrstica_matrike = []
-            for x in range(len(self.alternative)):
+            for x in range(len(primerjava['parametri'])):
                 py = primerjava['kriteriji'][y]
                 px = primerjava['kriteriji'][x]
                 vrstica_matrike.append(py/px)
@@ -203,32 +203,7 @@ class GUI(QtWidgets.QMainWindow):
                     self.ustvari_drevo_nodov(slovar_matrik_utezi, val_p[1], child)
                     break
         return node
-'''
 
-<g> ========================
-		a1	a2	a3
-p1:		5,	7,	8,
-p2:		5,	7,	8,
-p3:		5,	7,	8,
-==================================
-<p1> ========================
-		a1	a2	a3
-p11:		5,	7,	8,
-p22:		5,	7,	8,
-p33:		5,	7,	8,
-==================================
-
-<g> ========================
-		p1	p2	p3
-Values:    5, 7, 8,
-========================
-
-<p1> ========================
-		p11	p22	p33
-Values:    5, 7, 8,
-========================
-
-'''
 if __name__ == "__main__":
     import sys
 

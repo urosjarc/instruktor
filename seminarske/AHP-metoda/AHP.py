@@ -2,11 +2,12 @@ import operator
 import numpy as np
 from typing import List
 
+
 class Node(object):
     def __init__(self, name, matrix):
         self.name = name
         self.matrix = matrix
-        self.child:List[Node]  = []
+        self.child: List[Node] = []
         self.parent = None
         self.primerjava = None
         self.porocilo = None
@@ -27,9 +28,9 @@ class Node(object):
             data = []
             for child in self.child:
                 if len(child.child) > 0:
-                    data.append(self.porocilo)
+                    data.append(child.porocilo)
                 else:
-                    data.append(self.primerjava)
+                    data.append(child.primerjava)
             self.porocilo = Sestavi(self.name, self.primerjava, data)
 
 
@@ -85,7 +86,6 @@ class Primerjaj(object):
         vsota_vrstic = np.sum(kvadratna_matrika, 1)
         skupna_vsota_vrstic = np.sum(vsota_vrstic)
         glavni_bazni_vektor = np.divide(vsota_vrstic, skupna_vsota_vrstic).round(self.natancnost)
-        print(glavni_bazni_vektor)
         # Ustvari prazno matriko kot primerjalni bazni vektor ce je to prva iteracija
         if primerjalni_bazni_vektor is None:
             primerjalni_bazni_vektor = np.zeros(self.dimenzija_matrike)
@@ -134,7 +134,8 @@ class Primerjaj(object):
         Izracunaj prioritetni vektor matrike z normalizacijo in nato nastavi konsistencni faktor na 0
         """
         total_sum = float(np.sum(self.matrika))
-        self.prioritetni_vektor = np.divide(self.matrika, total_sum).round(self.natancnost).reshape(1, len(self.matrika))[0]
+        self.prioritetni_vektor = \
+            np.divide(self.matrika, total_sum).round(self.natancnost).reshape(1, len(self.matrika))[0]
         self.konsistencni_faktor = 0.0
 
     def report(self):
@@ -192,47 +193,36 @@ class Sestavi(object):
             porocilo += f'- {k}: {np.round(v, self.natancnost)}\n'
         return porocilo
 
+
 if __name__ == "__main__":
-    experience = np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
-    education = np.array([[1, 3, .2], [1/3., 1, 1/7.], [5, 7, 1]])
-    charisma = np.array([[1, 5, 9], [.2, 1, 4], [1/9., .25, 1]])
-    age = np.array([[1, 1/3., 5], [3, 1, 9], [.2, 1/9., 1]])
-    criteria = np.array([[1, 4, 3, 7], [.25, 1, 1/3., 3], [1/3., 3, 1, 5], [1/7., 1/3., .2, 1]])
-    exp1= np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
-    exp2 = np.array([[1, .25, 4], [4, 1, 9], [.25, 1/9., 1]])
+    alternatives = ('a1', 'a2')
+    goal_arr = np.array([[1, 1], [1, 1]])
+    p1_arr = np.array([[1, 1], [1, 1]])
+    p2_arr = np.array([[1, 1], [1, 1]])
+    p11_arr = np.array([[1, 1], [1, 1]])
+    p12_arr = np.array([[1, 1], [1, 1]])
 
-    alt2 = []
-    alt1 = ['Tom', 'Dick', 'Harry']
+    goal = Primerjaj('goal', goal_arr, ('p1', 'p2'))
+    p1 = Primerjaj('p1', p1_arr, ('p11', 'p12'))
+    p2 = Primerjaj('p2', p2_arr, alternatives)
 
-    cri = Primerjaj('goal', criteria, ('exp', 'age'))
-    exp = Primerjaj('exp', experience, ('edu', 'sha'))
-    edu = Primerjaj('edu', education, alt1)
-    cha = Primerjaj('cha', charisma, alt1)
-    age = Primerjaj('age', age, alt1)
+    p11 = Primerjaj('p11', p11_arr, alternatives)
+    p12 = Primerjaj('p12', p12_arr, alternatives)
 
-    exp = Sestavi('exp', exp, ())
+    p1_r = Sestavi('p1', p1, (p11, p12))
+    goar_r = Sestavi('goal', goal, (p1_r, p2))
 
-    exp = Sestavi('exp', exp, [exp1, exp2])
-    Sestavi('goal', cri, [exp, edu, cha, age]).report()
-'''
-<g> ========================
-		a1	a2	a3
-p1:		5,	7,	8,
-p2:		5,	7,	8,
-p3:		5,	7,	8,
+    print(goar_r.porocilo())
 
-<p1> ========================
-		a1	a2	a3
-p11:		5,	7,	8,
-p22:		5,	7,	8,
-p33:		5,	7,	8,
+    p11_node = Node('p11', p11_arr)
+    p12_node = Node('p12', p12_arr)
+    p1_node = Node('p1', p1_arr)
+    p2_node = Node('p2', p2_arr)
+    goal_node = Node('goal', goal_arr)
 
-<g> ========================
-		p1	p2	p3
-Values:		5,	7,	8,
+    goal_node.child = [p1_node, p2_node]
+    p1_node.child = [p11_node, p12_node]
 
-<p1> ========================
-		p11	p22	p33
-Values:		5,	7,	8,
-
-'''
+    goal_node.sestavi_primerjave(alternatives)
+    goal_node.sestavi_porocila()
+    print(goal_node.porocilo.porocilo())
