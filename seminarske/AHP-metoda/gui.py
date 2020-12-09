@@ -1,10 +1,11 @@
-from PyQt5 import QtWidgets, uic, QtGui, Qt, QtCore
-from PyQt5 import QtCore, QtGui, QtWidgets
 import os
+
 import numpy as np
+from PyQt5 import QtWidgets
+from PyQt5 import uic
 from PyQt5.QtWidgets import QMessageBox
 
-from AHP import Primerjaj, Sestavi, Node
+from AHP import Node
 
 
 class GUI(QtWidgets.QMainWindow):
@@ -12,8 +13,16 @@ class GUI(QtWidgets.QMainWindow):
 
         self.alternative = []
         self.primerjave = {
-            # 'ime_primerjave': {
-            #     'parametri': ['par1', 'par2'],
+            # 'g': {
+            #     'parametri': ['p1', 'p2'],
+            #     'kriteriji': [],
+            #     'matrika': [
+            #       [1,2],
+            #        [1,2]
+            #     ]
+            # },
+            # 'p1': {
+            #     'parametri': ['p11', 'p12'],
             #     'kriteriji': [],
             #     'matrika': []
             # }
@@ -67,10 +76,9 @@ class GUI(QtWidgets.QMainWindow):
 
     def reset(self):
         self.alternative = []
-        self.primerjave = { }
+        self.primerjave = {}
         self.vnosVrednostiTE.clear()
         self.vnosVrednostiKriterijevTE.clear()
-
 
     def _ustvari_primerjalno_matriko(self, imePrimerjave, parametri):
         vsebino = f'<{imePrimerjave}> ========================\n'
@@ -80,7 +88,7 @@ class GUI(QtWidgets.QMainWindow):
 
         for i, par in enumerate(parametri):
             vsebino += f"{par}:\t"
-            vsebino += '\t,'*len(self.alternative)
+            vsebino += '\t,' * len(self.alternative)
             vsebino += "\n"
 
         vsebino += "=================================="
@@ -91,7 +99,7 @@ class GUI(QtWidgets.QMainWindow):
         vsebino += "\t\t"
         vsebino += "\t".join(parametri)
         vsebino += f"\nValues:\t"
-        vsebino += '\t,'*len(parametri)
+        vsebino += '\t,' * len(parametri)
         vsebino += "\n========================\n"
         return vsebino
 
@@ -126,7 +134,7 @@ class GUI(QtWidgets.QMainWindow):
             if ':' in line:
                 vrstica = []
                 for ele in line.split(':')[-1].split(','):
-                    if ele!='':
+                    if ele != '':
                         vrstica.append(float(ele.strip()))
                 matrika.append(vrstica)
             if line.startswith('==='):
@@ -155,7 +163,7 @@ class GUI(QtWidgets.QMainWindow):
                 for x in range(len(self.alternative)):
                     py = primerjava['matrika'][i][y]
                     px = primerjava['matrika'][i][x]
-                    vrstica_matrike.append(py/px)
+                    vrstica_matrike.append(py / px)
                 matrika.append(vrstica_matrike)
             slovar_matrik_utezi[param] = np.array(matrika)
 
@@ -165,7 +173,7 @@ class GUI(QtWidgets.QMainWindow):
             for x in range(len(primerjava['parametri'])):
                 py = primerjava['kriteriji'][y]
                 px = primerjava['kriteriji'][x]
-                vrstica_matrike.append(py/px)
+                vrstica_matrike.append(py / px)
             matrika_kriterijev.append(vrstica_matrike)
 
         return (matrika_kriterijev, slovar_matrik_utezi)
@@ -183,7 +191,7 @@ class GUI(QtWidgets.QMainWindow):
         # Ustvari kriterijske povezave..
         # Ustvari parameterske povezave..
 
-    def ustvari_drevo_nodov(self, slovar_matrik_utezi, part = None, node=None):
+    def ustvari_drevo_nodov(self, slovar_matrik_utezi, part=None, node=None):
         if part is None:
             part = slovar_matrik_utezi
 
@@ -192,8 +200,7 @@ class GUI(QtWidgets.QMainWindow):
                 node = Node(key, val[0])
                 return self.ustvari_drevo_nodov(slovar_matrik_utezi, val[1], node)
 
-
-            child= Node(key, val)
+            child = Node(key, val)
             node.child.append(child)
             child.parent = node
 
@@ -203,6 +210,7 @@ class GUI(QtWidgets.QMainWindow):
                     self.ustvari_drevo_nodov(slovar_matrik_utezi, val_p[1], child)
                     break
         return node
+
 
 if __name__ == "__main__":
     import sys

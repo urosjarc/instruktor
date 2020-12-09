@@ -55,13 +55,12 @@ class Primerjaj(object):
     """
 
     def __init__(self, ime=None, matrika=None, kriteriji=None,
-                 natancnost=4, primerjalni_tip='qual', st_iteracij=100):
+                 st_iteracij=100):
         self.ime = ime
         self.matrika = matrika
         self.kriterij = kriteriji
         self.dimenzija_matrike = matrika.shape[0]
-        self.primerjalni_tip = primerjalni_tip
-        self.natancnost = natancnost
+        self.natancnost = 4
         self.st_iteracij = st_iteracij
         self.prioritetni_vektor = None
         self.konsistencni_faktor = None
@@ -71,12 +70,8 @@ class Primerjaj(object):
 
     def izracunaj(self):
         # Ce je primerjalni tip quantitativen se vnos normalizira
-        if self.primerjalni_tip == 'quant':
-            self.normaliziraj()
         # V nasprotnem primeru se izracuna prioritetni vektor in konsistentno razmerje
-        else:
-            self.izracunaj_prioritetni_vektor(self.matrika, self.st_iteracij)
-            self.izracunaj_konsistentni_faktor()
+        self.izracunaj_prioritetni_vektor(self.matrika, self.st_iteracij)
         # Ustvari slovar utezi
         slovar_utezi = dict(zip(self.kriterij, self.prioritetni_vektor))
         self.utezi = {self.ime: slovar_utezi}
@@ -104,43 +99,8 @@ class Primerjaj(object):
             self.prioritetni_vektor = glavni_bazni_vektor
             return
 
-    def izracunaj_konsistentni_faktor(self):
-        if self.dimenzija_matrike < 3:
-            self.konsistencni_faktor = 0.0
-            return
-
-        # Nakljucni index
-        ri_dict = {3: 0.52, 4: 0.89, 5: 1.11, 6: 1.25, 7: 1.35, 8: 1.40, 9: 1.45,
-                   10: 1.49, 11: 1.52, 12: 1.54, 13: 1.56, 14: 1.58, 15: 1.59}
-
-        try:
-            random_index = ri_dict[self.dimenzija_matrike]
-        except KeyError:
-            import bisect
-            s = sorted(ri_dict)
-            smaller = s[bisect.bisect_left(s, self.dimenzija_matrike) - 1]
-            larger = s[bisect.bisect_right(s, self.dimenzija_matrike)]
-            estimate = (ri_dict[larger] - ri_dict[smaller]) / (larger - smaller)
-            random_index = estimate * (self.dimenzija_matrike - smaller) + ri_dict[smaller]
-
-        # Najdi Perron-Frobenius eigenvalue matrike
-        lambda_max = np.linalg.eigvals(self.matrika).max()
-        konsistencni_index = (lambda_max - self.dimenzija_matrike) / (self.dimenzija_matrike - 1)
-        # Izracunaj konsistecni faktor
-        self.konsistencni_faktor = np.real(konsistencni_index / random_index).round(self.natancnost)
-
-    def normaliziraj(self):
-        """
-        Izracunaj prioritetni vektor matrike z normalizacijo in nato nastavi konsistencni faktor na 0
-        """
-        total_sum = float(np.sum(self.matrika))
-        self.prioritetni_vektor = \
-            np.divide(self.matrika, total_sum).round(self.natancnost).reshape(1, len(self.matrika))[0]
-        self.konsistencni_faktor = 0.0
-
     def report(self):
         print('Ime:', self.ime)
-        print('Konsistencni faktor:', self.konsistencni_faktor)
         print('Utezi:')
         sortirane_utezi = sorted(self.utezi[self.ime].items(), key=operator.itemgetter(1), reverse=True)
         for k, v in sortirane_utezi:
@@ -155,18 +115,10 @@ class Sestavi(object):
         self.stars = stars
         self.otrok = otrok
         self.utezi = dict()
-        self.natancnost = None
+        self.natancnost = 4
 
-        self.izracunaj_natancnost()
         self.izracunaj_skupno_prioriteto()
         self.normaliziraj_skupno_prioriteto()
-
-    def izracunaj_natancnost(self):
-        natancnost = np.min([child.natancnost for child in self.otrok])
-        if natancnost < self.stars.natancnost:
-            self.natancnost = natancnost
-        else:
-            self.natancnost = self.stars.natancnost
 
     def izracunaj_skupno_prioriteto(self):
         for pk, pv in self.stars.utezi[self.stars.ime].items():
@@ -196,7 +148,10 @@ class Sestavi(object):
 
 if __name__ == "__main__":
     alternatives = ('a1', 'a2')
-    goal_arr = np.array([[1, 1], [1, 1]])
+    goal_arr = np.array([[1, 3, 4, 6],
+                         [5, 3, 2, 9],
+                         [2,5,3,6],
+                         [3,5,7,4]])
     p1_arr = np.array([[1, 1], [1, 1]])
     p2_arr = np.array([[1, 1], [1, 1]])
     p11_arr = np.array([[1, 1], [1, 1]])
